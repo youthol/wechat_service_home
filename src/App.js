@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./App.scss";
-import { Button} from "antd";
+import Router from "./router"
+import "./common/style/App.scss";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Button type="primary">Button</Button>
+      <div>
+        <Router />
       </div>
     );
   }
