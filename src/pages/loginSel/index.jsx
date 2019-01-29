@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../components/layout/Footer";
 import "./loginSel.scss";
 import { Card, Avatar } from "antd";
-import Logo from "../../common/img/favicon.png";
+import Logo from "../../common/img/logo.png";
 import Wechat from "../../common/img/wechat.png";
 import sr from "../../components/scrollreveal";
 
