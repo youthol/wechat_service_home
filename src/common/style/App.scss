@@ -1,6 +1,43 @@
 // 公共样式
-@import './weui.css';  //weui，大小61k
+// 使用weui+样式框架
+@import './weui.min.css';
+@import './weuix.min.css';
 
-.p-footer {
+p {
+  margin: 0;
+}
+
+.delMarPad {
+  * {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+.youth-hd {
+  @extend .delMarPad;
+
+  text-align: center;
+
+  padding: 2em 0;
+
+  .youth-hd-title {
+    color: #3CC51F;
+
+    font: {
+      size: 34px;
+      weight: 400;
+    }
+  }
+
+  .youth-hd-desc {
+    color: #888;
+    font-size: 14px;
+  }
+}
+
+
+.youth-footer {
   margin-top: 50px;
 }

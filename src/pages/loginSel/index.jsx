@@ -10,6 +10,8 @@ const Meta = Card.Meta;
 
 class LoginSel extends React.Component {
   componentDidMount = () => {
+
+    // 出场动画
     sr.reveal(".card-wecaht", {
       origin: "bottom",
       duration: 1000,
@@ -29,12 +31,9 @@ class LoginSel extends React.Component {
       <div>
         <div className="loginSel-box">
           <div className="card-wecaht">
-            <Card className="loginSel-card">
-              <Meta
-                title="微信登录"
-                avatar={<Avatar src={Wechat} />}
-              />
-            </Card>
+              <Card className="loginSel-card">
+                <Meta title="微信登录" avatar={<Avatar src={Wechat} />} />
+              </Card>
           </div>
           <div className="card-logo">
             <Card className="loginSel-card">
