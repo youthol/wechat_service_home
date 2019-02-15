@@ -1,6 +1,4 @@
-import Axios from "axios";
-
-export const binding = props => {
+export const binding = () => {
   // 获取url中的参数
   const getQueryVariable = variable => {
     var query = window.location.search.substring(1); //substring() 方法用于提取字符串中介于两个指定下标之间的字符。
@@ -14,26 +12,5 @@ export const binding = props => {
     return false;
   };
 
-  const code = getQueryVariable("code");
-
-  console.log(code);
-
-  Axios({
-    method: "GET", // 请求类型
-    url: "/", // 请求地址
-    params: {
-      // 请求数据
-      code: code
-    },
-    responseType: "json" // 响应数据的类型
-  })
-    .then(response => {
-      console.log(response);
-      console.log(props);
-      console.log(props.location);
-      props.history.push("/select");
-    })
-    .catch(error => {
-      alert(error);
-    });
+  return getQueryVariable("code");
 };
