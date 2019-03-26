@@ -4,6 +4,12 @@ import Input from "../weui/Input";
 import Select from "../weui/Select";
 
 class InfoBindForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      colleges: [],
+    }
+  }
   render() {
     return (
       <div>
