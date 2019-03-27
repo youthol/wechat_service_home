@@ -7,7 +7,14 @@ const Select = props => {
         <label className="weui-label">{props.title}</label>
       </div>
       <div className="weui-cell__bd">
-        <select className="weui-input" id="campus" type="text" defaultValue={props.defaultValue} readOnly={true}>
+        <select
+          className="weui-input"
+          type="text"
+          name={props.name}
+          defaultValue={props.defaultValue}
+          readOnly={true}
+          onChange={props.onChange}
+        >
           {props.children}
         </select>
       </div>

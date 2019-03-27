@@ -5,7 +5,7 @@ const Input = props => {
   return (
     <div className="weui-cell">
       <div className="weui-cell__hd">
-        <label className="weui-label">{props.title}</label>
+        <label className={"weui-label " + props.labelClassName}>{props.title}</label>
       </div>
       <div className="weui-cell__bd">
         <input
@@ -13,6 +13,8 @@ const Input = props => {
           pattern="[0-9]*"
           placeholder={props.desc}
           type={props.type}
+          onChange={props.onChange}
+          name={props.name}
         />
       </div>
     </div>
