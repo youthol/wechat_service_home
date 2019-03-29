@@ -4,6 +4,8 @@
  */
 import { binding } from "../../components/getCode";
 import Axios from "axios";
+import { Api } from "../../common/api";
+import { loStorage } from "../../model/storage";
 
 const WechatBin = props => {
   let code = binding();
@@ -11,7 +13,7 @@ const WechatBin = props => {
 
   Axios({
     method: "GET", // 请求类型
-    url: "https://api.youthol.cn/api/service/authorization", // 请求地址
+    url: Api.infoByCode, // 请求地址
     params: {
       // 请求数据
       code: code
@@ -20,11 +22,15 @@ const WechatBin = props => {
   })
     .then(response => {
       console.log(response);
-      console.log(props);
-      if (!response.data || response.data.code === -1) {
+      loStorage.clear();
+      if (!response.data) {
         props.history.push("/home");
       } else {
-        //
+        if (response.data.code === 0) {
+          loStorage.set("info", response.data.data);
+        }
+        loStorage.set("meta", response.data.meta);
+        props.history.push("/home");
       }
     })
     .catch(error => {

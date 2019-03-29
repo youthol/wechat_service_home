@@ -5,6 +5,7 @@ import Select from "../weui/Select";
 import Axios from "axios";
 import { Api } from "../../common/api";
 import Button from "../weui/Button";
+import { loStorage } from "../../model/storage";
 
 const collegeState = [
   <option value="0">学院信息获取中..</option>,
@@ -21,12 +22,27 @@ class InfoBindForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sdut_id: "", //str
-      college: "", //int
+      sdut_id: {
+        title: "学号",
+        content: "" //str
+      },
+      college: {
+        title: "学院",
+        content: "" //int
+      },
       class: "", //str
-      dormitory: "", //int
-      room: "", //int
-      password_jwc: "", //str
+      dormitory: {
+        title: "宿舍楼号",
+        content: "" //int
+      },
+      room: {
+        title: "房间号",
+        content: "" //int
+      },
+      password_jwc: {
+        title: "教务处密码",
+        content: ""
+      }, //str
       password_dt: "", //str
       collegeList: [],
       isCollege: collegeState[0],
@@ -92,8 +108,7 @@ class InfoBindForm extends Component {
     if (
       inputName === "college" ||
       inputName === "dormitory" ||
-      inputName === "room" ||
-      inputName === "school"
+      inputName === "room"
     ) {
       data = parseInt(e.target.value);
     } else {
@@ -108,6 +123,54 @@ class InfoBindForm extends Component {
         console.log(this.state[inputName]);
       }
     );
+  };
+
+  checkForm = () => {
+    for (const key in this.state) {
+      if (
+        key === "sdut_id" ||
+        key === "college" ||
+        key === "dormitory" ||
+        key === "room" ||
+        key === "password_jwc"
+      ) {
+        if (this.state[key].content === "") {
+          alert(`未填写${this.state[key].title}！`);
+          return;
+        }
+      }
+    }
+    return true;
+  };
+
+  handleSub = () => {
+    if (this.checkForm()) {
+      const subData = {
+        sdut_id: this.state.sdut_id,
+        college: this.state.college,
+        class: this.state.class,
+        dormitory: this.state.dormitory,
+        room: this.state.room,
+        password_jwc: this.state.password_jwc,
+        password_dt: this.state.password_dt
+      };
+      Axios({
+        method: "POST",
+        url: Api.bindInfo,
+        headers: {
+          'Authorization': "Bearer " + loStorage.get("meta").access_token
+        },
+        data: subData
+      })
+        .then(res => {
+          console.log(res);
+          loStorage.set("info", subData);
+          this.props.history.push('/home');
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
+    }
   };
 
   render() {
@@ -150,7 +213,7 @@ class InfoBindForm extends Component {
                 this.getFormData(e);
               }}
             />
-            <Select
+            {/* <Select
               title="校区*"
               defaultValue="2"
               name="school"
@@ -161,7 +224,7 @@ class InfoBindForm extends Component {
               <option value="2">请选择所在校区</option>
               <option value="0">东校区</option>
               <option value="1">西校区</option>
-            </Select>
+            </Select> */}
             <Select
               title="宿舍楼号*"
               defaultValue="0"
@@ -209,7 +272,7 @@ class InfoBindForm extends Component {
               }}
             />
           </Cells>
-          <Button content="绑定" />
+          <Button content="绑定" onClick={this.handleSub} />
         </form>
       </div>
     );
