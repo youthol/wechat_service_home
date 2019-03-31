@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "@svgr/webpack": "2.4.1",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
@@ -53,6 +54,7 @@
     "scrollreveal": "^4.0.5",
     "style-loader": "0.23.0",
     "terser-webpack-plugin": "1.1.0",
+    "typeface-roboto": "0.0.54",
     "url-loader": "1.1.1",
     "webpack": "4.19.1",
     "webpack-dev-server": "3.1.14",
