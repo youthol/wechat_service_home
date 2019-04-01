@@ -8,6 +8,7 @@ import {  pink, blue } from "@material-ui/core/colors";
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
+    fontSize: 12
   },
   palette: {
     primary: blue,

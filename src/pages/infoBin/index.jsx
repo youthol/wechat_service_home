@@ -12,7 +12,7 @@ import Footer from "../../components/layout/Footer";
 const InfoBin = () => {
   return (
     <div>
-      <Header title="信息绑定" />
+      <Header title="信息绑定"/>
       <InfoBindForm />
       <Footer />
     </div>

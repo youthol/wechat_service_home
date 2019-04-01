@@ -6,6 +6,7 @@
 body {
   background-color: #f8f8f8;
 }
+
 p {
   margin: 0;
 }
@@ -17,6 +18,45 @@ p {
   }
 }
 
+.page_hd {
+  margin: 30px 0;
+
+  .page_title {
+    margin: 20px 0 20px;
+    padding: 10px;
+    text-align: center;
+
+    span {
+      position: relative;
+    }
+
+    span::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: -10%;
+      width: 120%;
+      height: 2px;
+      background-color: #008aff;
+    }
+  }
+}
+
+.page_bd {
+  padding: 0 16px;
+}
+
+.page__ft {
+  margin: 10px 0 64px;
+  color: #999;
+  line-height: 1.5;
+  font-size: 12px;
+}
+
+.page__hd,
+.page__ft {
+  text-align: center;
+}
 
 .youth-hd {
   @extend .delMarPad;
@@ -63,9 +103,17 @@ p {
 }
 
 .youth-button {
-  margin: 50px 15px ;
+  margin: 50px 15px;
 }
 
 .page_body_form {
   margin: 0 15px;
+}
+
+.page_button {
+  margin-top: 30px !important;
+}
+
+.warning-line {
+  line-height: 100%;
 }

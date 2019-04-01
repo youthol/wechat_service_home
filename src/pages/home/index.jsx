@@ -7,6 +7,7 @@ import Footer from "../../components/layout/Footer";
 import FooterLink from "../../components/layout/FooterLink";
 import sr from "../../components/scrollreveal";
 import UserImg from "../../common/img/user.png";
+import { Grid } from "@material-ui/core";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -32,7 +33,10 @@ class Home extends React.Component {
           />
         </Link>
         <Header title="学生服务" />
-        <HomeBody>
+        <Grid container spacing={24}>
+          
+        </Grid>
+        {/* <HomeBody>
           <HomeBox
             name="绩点查询"
             url="https://lab.youthol.cn/app/wechat-service/jd/#/login"
@@ -82,13 +86,13 @@ class Home extends React.Component {
             name="班车时间"
             url="https://lab.youthol.cn/app/wechat-service/bus"
             imgSrc="https://lab.youthol.cn/app/wechat-service/home/statics/images/bus.png"
-          />
+          /> */}
           {/* <HomeBox
             name="四六级考号备忘"
             url="https://lab.youthol.cn/cet46"
             imgSrc="https://lab.youthol.cn/app/wechat-service/home/statics/images/cet.png"
           /> */}
-          <HomeBox
+          {/* <HomeBox
             name="全景地图"
             url="http://720yun.com/t/49f29wa5wbs"
             imgSrc="https://lab.youthol.cn/app/wechat-service/home/statics/images/view.png"
@@ -98,7 +102,7 @@ class Home extends React.Component {
             url={null}
             imgSrc="https://lab.youthol.cn/app/wechat-service/home/statics/images/updating.png"
           />
-        </HomeBody>
+        </HomeBody> */}
         <Footer>
           <FooterLink name="首页" url="" />
         </Footer>

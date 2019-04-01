@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-// import Cells from "../weui/Cells";
-// import Input from "../weui/Input";
-// import Select from "../weui/Select";
 import Axios from "axios";
 import { Api } from "../../common/api";
-// import Button from "../weui/Button";
 import { loStorage } from "../../model/storage";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -15,8 +11,23 @@ import {
   InputLabel,
   Input,
   InputAdornment,
-  IconButton
+  IconButton,
+  Snackbar,
+  SnackbarContent,
+  withStyles
 } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
+import WarningIconOverride from "../material/WarningIconOverride";
+
+const yhlStyle = () => ({
+  error: {
+    backgroundColor: red[500]
+  },
+  message: {
+    display: "flex",
+    alignItems: "center"
+  }
+});
 
 const collegeState = [
   <option value="" disabled>
@@ -72,7 +83,11 @@ class InfoBindForm extends Component {
       collegeList: [],
       isCollege: collegeState[0],
       dormitoryList: [],
-      isDormitory: dormitoryState[0]
+      isDormitory: dormitoryState[0],
+      snackbarOpen: false,
+      snackbarVertical: "top",
+      snackbarHorizontal: "center",
+      snackbarContent: ""
     };
   }
 
@@ -128,29 +143,34 @@ class InfoBindForm extends Component {
   };
 
   handleSel = event => {
-    console.log(event.target.name);
-    this.setState({
-      [event.target.name]: {
-        content: event.target.value
+    const selectName = event.target.name;
+    this.setState(
+      {
+        [event.target.name]: {
+          content: event.target.value
+        }
+      },
+      () => {
+        console.log(this.state[selectName].content);
       }
-    });
+    );
   };
   getFormData = e => {
     const inputName = e.target.name;
-    let data = null;
-    if (
-      inputName === "college" ||
-      inputName === "dormitory" ||
-      inputName === "room"
-    ) {
-      data = parseInt(e.target.value);
-    } else {
-      data = e.target.value;
-    }
+    // let data = null;
+    // if (
+    //   inputName === "college" ||
+    //   inputName === "dormitory" ||
+    //   inputName === "room"
+    // ) {
+    //   data = parseInt(e.target.value);
+    // } else {
+    //   data = e.target.value;
+    // }
     // 动态改变对象的属性名可以使用[]将变量名包裹起来
     this.setState(
       {
-        [inputName]: data
+        [inputName]: e.target.value
       },
       () => {
         console.log(this.state[inputName]);
@@ -168,7 +188,7 @@ class InfoBindForm extends Component {
         key === "password_jwc"
       ) {
         if (this.state[key].content === "") {
-          alert(`未填写${this.state[key].title}！`);
+          this.handleShowSnackbar(key);
           return;
         }
       }
@@ -215,16 +235,34 @@ class InfoBindForm extends Component {
       showPassword_dt: !this.state.showPassword_dt
     });
   };
+  handleShowSnackbar = key => {
+    this.setState({
+      snackbarOpen: true,
+      snackbarContent: this.state[key].title
+    });
+  };
+  handleCloseSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
+    });
+  };
   render() {
+    const { classes } = this.props;
+    console.log(classes);
+
     return (
-      <div className="page_body_form">
+      <div className="page_bd">
         <TextField
+          error={false}
           label="学号 *"
           name="sdut_id"
           placeholder="请输入学号"
           fullWidth={true}
           margin="dense"
+          onChange={this.getFormData}
+          className="form-font-size"
         />
+
         <TextField
           select
           margin="dense"
@@ -284,12 +322,14 @@ class InfoBindForm extends Component {
           placeholder="请输入房间号"
           fullWidth={true}
           margin="dense"
+          onChange={this.getFormData}
         />
 
         <FormControl fullWidth={true} margin="dense">
           <InputLabel>教务处密码 *</InputLabel>
           <Input
             type={this.state.showPassword_jwc ? "text" : "password"}
+            onChange={this.getFormData}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -307,9 +347,10 @@ class InfoBindForm extends Component {
           />
         </FormControl>
         <FormControl fullWidth={true} margin="dense">
-          <InputLabel>网上服务大厅密码 *</InputLabel>
+          <InputLabel>网上服务大厅密码</InputLabel>
           <Input
             type={this.state.showPassword_dt ? "text" : "password"}
+            onChange={this.getFormData}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -326,12 +367,39 @@ class InfoBindForm extends Component {
             }
           />
         </FormControl>
-        <Button variant="contained" color="primary" size="small">
+        <Button
+          fullWidth={true}
+          className="page_button"
+          variant="contained"
+          color="primary"
+          onClick={this.checkForm}
+        >
           提交
         </Button>
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: this.state.snackbarVertical,
+            horizontal: this.state.snackbarHorizontal
+          }}
+          open={this.state.snackbarOpen}
+          onClose={this.handleCloseSnackbar}
+          autoHideDuration={1500}
+        >
+          <SnackbarContent
+            classes={{
+              root: classes.error
+            }}
+            message={
+              <span className={classes.message}>
+                <WarningIconOverride />
+                未填写{this.state.snackbarContent}
+              </span>
+            }
+          />
+        </Snackbar>
       </div>
     );
   }
 }
-
-export default InfoBindForm;
+export default withStyles(yhlStyle)(InfoBindForm);

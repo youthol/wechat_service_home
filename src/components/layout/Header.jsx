@@ -1,12 +1,16 @@
 import React from "react";
+import { Typography } from "@material-ui/core";
 
 const Header = props => {
   return (
-    <div className={props.className}>
-      <div className="youth-hd">
+    <div className={"page_hd " + props.className}>
+      <Typography variant="h6" align="center" className="page_title">
+        <span>{props.title}</span>
+      </Typography>
+      {/* <div className="youth-hd">
         <p className="youth-hd-title">{props.title}</p>
         <p className="youth-hd-desc">青春在线提供技术支持</p>
-      </div>
+      </div> */}
     </div>
   );
 };
