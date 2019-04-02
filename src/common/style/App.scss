@@ -19,7 +19,7 @@ p {
 }
 
 .page_hd {
-  margin: 30px 0;
+  padding: 30px 0;
 
   .page_title {
     margin: 20px 0 20px;
@@ -116,4 +116,20 @@ p {
 
 .warning-line {
   line-height: 100%;
+}
+
+.icon-chengji::before,
+.icon-qia1::before,
+.icon-dianchi::before,
+.icon-dasao::before,
+.icon-exam::before,
+.icon-chengjifenxi::before,
+.icon-jiaoshi::before,
+.icon-wsdzb_zbgzt_zzsh_txth::before,
+.icon-rili1::before,
+.icon-gongjiaoche-::before,
+.icon-quanjing::before,
+.icon-moreApp::before {
+  color: #008aff;
+  font-size: 28px;
 }
