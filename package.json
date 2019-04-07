@@ -2,6 +2,7 @@
   "name": "wechat-start",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
@@ -50,6 +51,7 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "scrollreveal": "^4.0.5",
@@ -125,6 +127,7 @@
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.4",
-    "babel-plugin-import": "^1.11.0"
+    "babel-plugin-import": "^1.11.0",
+    "react-app-rewired": "^2.1.1"
   }
 }

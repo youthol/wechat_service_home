@@ -1,7 +1,7 @@
 export const Api =  {
   /**
    * infoByCode
-   * CET
+   * GET
    * 以code为参数，获取用户信息
    */
   infoByCode: "https://api.youthol.cn/api/service/authorization",
@@ -18,7 +18,7 @@ export const Api =  {
   infoByToken: "https://api.youthol.cn/api/service/user",
   /**
    * college
-   * CET
+   * GET
    * 获取所有学院
    */
   college: "https://api.youthol.cn/api/college",

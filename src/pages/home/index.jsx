@@ -1,12 +1,10 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-// import HomeBody from "../../components/homeUnit/HomeBody";
-// import HomeBox from "../../components/homeUnit/HomeBox";
-import Header from "../../components/layout/Header";
-import Footer from "../../components/layout/Footer";
-import FooterLink from "../../components/layout/FooterLink";
-import sr from "../../components/scrollreveal";
-import UserImg from "../../common/img/user.png";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import FooterLink from "@/components/layout/FooterLink";
+import sr from "@/components/scrollreveal";
+import UserImg from "@/common/img/user.png";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 
 const style = () => ({
@@ -27,20 +25,20 @@ class Home extends React.Component {
     super(props);
     this.state = {
       serviceUrl: {
-        jidian: "https://lab.youthol.cn/app/wechat-service/jd/#/login",
-        ecard: "https://lab.youthol.cn/app/wechat-service/ecard/",
+        jidian: "https://lab.youthol.cn/app/wechat-service/jd/#/login",  //绩点
+        ecard: "https://lab.youthol.cn/app/wechat-service/ecard/",  //一卡通
         elec:
-          "https://lab.youthol.cn/app/wechat-service/elec-use/index.html#/",
+          "https://lab.youthol.cn/app/wechat-service/elec-use/index.html#/",  //用电查询
         hygiene:
-          "https://lab.youthol.cn/app/wechat-service/hygiene/index.html#/",
-        exam: "https://lab.youthol.cn/app/wechat-service/exam/index.html#/",
-        cet: "http://cet.neea.edu.cn/cet/",
-        cert: "https://lab.youthol.cn/app/wechat-service/cert/#/",
-        pth: "http://youth.sdut.edu.cn/wechat/pth/",
-        calendor: "https://lab.youthol.cn/app/wechat-service/calendar",
-        bus: "https://lab.youthol.cn/app/wechat-service/bus",
-        qj: "http://720yun.com/t/49f29wa5wbs",
-        aboutUs: ""
+          "https://lab.youthol.cn/app/wechat-service/hygiene/index.html#/",  //宿舍卫生
+        exam: "https://lab.youthol.cn/app/wechat-service/exam/index.html#/",  //考试时间
+        cet: "http://cet.neea.edu.cn/cet/",  //四六级成绩
+        cert: "https://lab.youthol.cn/app/wechat-service/cert/#/",  //教师资格证
+        pth: "http://youth.sdut.edu.cn/wechat/pth/",  //普通话
+        calendor: "https://lab.youthol.cn/app/wechat-service/calendar",  //校历
+        bus: "https://lab.youthol.cn/app/wechat-service/bus",  //班车
+        qj: "http://720yun.com/t/49f29wa5wbs",  //全景
+        aboutUs: ""  //关于我们
       }
     };
   }

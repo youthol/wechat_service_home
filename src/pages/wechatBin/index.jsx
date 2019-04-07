@@ -3,43 +3,34 @@
  * 从这里获取code（不需要渲染）
  */
 import { binding } from "../../components/getCode";
-import Axios from "axios";
-import { Api } from "../../common/api";
 import { loStorage } from "../../model/storage";
+import { getInfoByCode } from "../../api/auth";
 
 const WechatBin = props => {
   let code = binding();
   console.log(code);
-
-  Axios({
-    method: "GET", // 请求类型
-    url: Api.infoByCode, // 请求地址
-    params: {
-      // 请求数据
-      code: code
-    },
-    responseType: "json" // 响应数据的类型(默认)
-  })
-    .then(response => {
-      console.log(response);
-      loStorage.clear();
-      if (!response.data) {
-        props.history.push("/home");
-      } else {
-        if (response.data.code === 0) {
-          loStorage.set("info", response.data.data);
-        }
-        loStorage.set("meta", response.data.meta);
-        props.history.push("/home");
-      }
-    })
-    .catch(error => {
-      // alert(error);
-      console.log(error.response);
-
-      props.history.push("/home");
+  // 封装axios中的get请求接收一个对象
+  const codeInfo = {
+    code: code
+  };
+  const getInfo = async () => {
+    // 请求成功data会获取到值，请求失败用.catch()操作
+    const data = await getInfoByCode(codeInfo).catch(err => {
+      console.log(err);
+      return false;
     });
+    loStorage.clear();
+    if (!data) {
+      props.history.push("/home");
+      return;
+    } else if (data.code === 0) {
+      loStorage.set("info", data.data);
+    }
+    loStorage.set("meta", data.meta);
+    props.history.push("/home");
+  };
 
+  getInfo();
   return null;
 };
 

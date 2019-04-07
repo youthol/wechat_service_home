@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Axios from "axios";
-import { Api } from "../../common/api";
-import { loStorage } from "../../model/storage";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {
@@ -18,6 +15,8 @@ import {
 } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 import WarningIconOverride from "../material/WarningIconOverride";
+import { getDormitory, bindInfo, getCollege } from "../../api/auth";
+import { loStorage } from "../../model/storage";
 
 const yhlStyle = () => ({
   error: {
@@ -29,28 +28,9 @@ const yhlStyle = () => ({
   }
 });
 
-const collegeState = [
-  <option value="" disabled>
-    学院信息获取中..
-  </option>,
-  <option value="" disabled>
-    请选择所在学院
-  </option>,
-  <option value="" disabled>
-    学院信息获取失败！
-  </option>
-];
-const dormitoryState = [
-  <option value="" disabled>
-    宿舍信息获取中..
-  </option>,
-  <option value="" disabled>
-    请选择所在宿舍楼
-  </option>,
-  <option value="" disabled>
-    宿舍信息获取失败！
-  </option>
-];
+const collegeState = ["学院信息获取中..", "学院信息获取失败！"];
+const dormitoryState = ["宿舍信息获取中..", "宿舍信息获取失败！"];
+const mastInput = ["sdut_id", "college", "dormitory", "room", "password_jwc"];
 
 class InfoBindForm extends Component {
   constructor(props) {
@@ -80,9 +60,9 @@ class InfoBindForm extends Component {
       password_dt: "", //str
       showPassword_jwc: false,
       showPassword_dt: false,
-      collegeList: [],
+      collegeList: "",
       isCollege: collegeState[0],
-      dormitoryList: [],
+      dormitoryList: "",
       isDormitory: dormitoryState[0],
       snackbarOpen: false,
       snackbarVertical: "top",
@@ -96,99 +76,70 @@ class InfoBindForm extends Component {
     this.getDormitory();
   }
 
-  getCollege = () => {
-    Axios({
-      method: "GET",
-      url: Api.college
-    })
-      .then(res => {
-        console.log(res);
-        if (res.data) {
-          this.setState({
-            collegeList: res.data.data,
-            isCollege: collegeState[1]
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err.response);
-        this.setState({
-          collegeList: "",
-          isCollege: collegeState[2]
-        });
+  // 异步获取学院信息
+  getCollege = async () => {
+    const data = await getCollege().catch(() => {
+      this.setState({
+        isCollege: collegeState[1]
       });
+      return false;
+    });
+    if (data) {
+      this.setState({
+        collegeList: data.data
+      });
+    }
   };
 
-  getDormitory = () => {
-    Axios({
-      method: "GET",
-      url: Api.domitory
-    })
-      .then(res => {
-        console.log(res);
-        if (res.data) {
-          this.setState({
-            dormitoryList: res.data.data,
-            isDormitory: dormitoryState[1]
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err.response);
-        this.setState({
-          dormitoryList: "",
-          isDormitory: dormitoryState[2]
-        });
+  getDormitory = async () => {
+    const data = await getDormitory().catch(() => {
+      this.setState({
+        isDormitory: dormitoryState[1]
       });
+      return false;
+    });
+    if (data) {
+      this.setState({
+        dormitoryList: data.data
+      });
+    }
   };
 
-  handleSel = event => {
-    const selectName = event.target.name;
-    this.setState(
-      {
-        [event.target.name]: {
-          content: event.target.value
-        }
-      },
-      () => {
-        console.log(this.state[selectName].content);
+  // 选择框
+  getSelData = event => {
+    this.setState({
+      [event.target.name]: {
+        content: event.target.value
       }
-    );
+    });
   };
-  getFormData = e => {
+
+  // 输入框
+  getInputData = e => {
     const inputName = e.target.name;
-    // let data = null;
-    // if (
-    //   inputName === "college" ||
-    //   inputName === "dormitory" ||
-    //   inputName === "room"
-    // ) {
-    //   data = parseInt(e.target.value);
-    // } else {
-    //   data = e.target.value;
-    // }
-    // 动态改变对象的属性名可以使用[]将变量名包裹起来
-    this.setState(
-      {
+    if (
+      inputName === "sdut_id" ||
+      inputName === "room" ||
+      inputName === "password_jwc"
+    ) {
+      this.setState({
+        [inputName]: {
+          content: e.target.value
+        }
+      });
+    } else {
+      this.setState({
         [inputName]: e.target.value
-      },
-      () => {
-        console.log(this.state[inputName]);
-      }
-    );
+      });
+    }
   };
 
   checkForm = () => {
-    for (const key in this.state) {
-      if (
-        key === "sdut_id" ||
-        key === "college" ||
-        key === "dormitory" ||
-        key === "room" ||
-        key === "password_jwc"
-      ) {
-        if (this.state[key].content === "") {
-          this.handleShowSnackbar(key);
+    for (const key in mastInput) {
+      if (mastInput.hasOwnProperty(key)) {
+        const element = mastInput[key];
+        if (this.state[element].content === "") {
+          this.handleShowSnackbar(element);
           return;
         }
       }
@@ -198,33 +149,30 @@ class InfoBindForm extends Component {
 
   handleSub = () => {
     if (this.checkForm()) {
-      const subData = {
-        sdut_id: this.state.sdut_id,
-        college: this.state.college,
-        class: this.state.class,
-        dormitory: this.state.dormitory,
-        room: this.state.room,
-        password_jwc: this.state.password_jwc,
-        password_dt: this.state.password_dt
-      };
-      Axios({
-        method: "POST",
-        url: Api.bindInfo,
-        headers: {
-          Authorization: "Bearer " + loStorage.get("meta").access_token
-        },
-        data: subData
-      })
-        .then(res => {
-          console.log(res);
-          loStorage.set("info", subData);
-          this.props.history.push("/home");
-        })
-        .catch(err => {
-          console.log(err.response);
-        });
+      this.bindInfo();
     }
   };
+
+  bindInfo = async () => {
+    const subData = {
+      sdut_id: this.state.sdut_id.content,
+      college: parseInt(this.state.college.content),
+      class: this.state.class,
+      dormitory: parseInt(this.state.dormitory.content),
+      room: parseInt(this.state.room.content),
+      password_jwc: this.state.password_jwc.content,
+      password_dt: this.state.password_dt
+    };
+    const header = {
+      Authorization: "Bearer " + loStorage.get("meta").access_token
+    };
+    const data = await bindInfo(subData, header).catch(err => {
+      console.log(err);
+    });
+    if (!data) {
+    }
+  };
+
   handleClickShowPasswordJwc = () => {
     this.setState({
       showPassword_jwc: !this.state.showPassword_jwc
@@ -248,8 +196,6 @@ class InfoBindForm extends Component {
   };
   render() {
     const { classes } = this.props;
-    console.log(classes);
-
     return (
       <div className="page_bd">
         <TextField
@@ -259,7 +205,7 @@ class InfoBindForm extends Component {
           placeholder="请输入学号"
           fullWidth={true}
           margin="dense"
-          onChange={this.getFormData}
+          onChange={this.getInputData}
           className="form-font-size"
         />
 
@@ -270,21 +216,25 @@ class InfoBindForm extends Component {
           label="学院 *"
           value={this.state.college.content}
           name="college"
-          onChange={this.handleSel}
+          onChange={this.getSelData}
           SelectProps={{
             native: true
           }}
         >
           <option value="" disabled />
-          {!this.state.collegeList
-            ? this.state.isCollege
-            : this.state.collegeList.map(item => {
-                return (
-                  <option value={item.id} key={item.id}>
-                    {item.name}
-                  </option>
-                );
-              })}
+          {!this.state.collegeList ? (
+            <option value="1" disabled>
+              {this.state.isCollege}
+            </option>
+          ) : (
+            this.state.collegeList.map(item => {
+              return (
+                <option value={item.id} key={item.id}>
+                  {item.name}
+                </option>
+              );
+            })
+          )}
         </TextField>
         <TextField
           label="班级"
@@ -292,6 +242,7 @@ class InfoBindForm extends Component {
           placeholder="请输入所在班级"
           fullWidth={true}
           margin="dense"
+          onChange={this.getInputData}
         />
         <TextField
           select
@@ -300,7 +251,7 @@ class InfoBindForm extends Component {
           label="宿舍楼号 *"
           value={this.state.dormitory.content}
           name="dormitory"
-          onChange={this.handleSel}
+          onChange={this.getSelData}
           SelectProps={{
             native: true
           }}
@@ -322,14 +273,15 @@ class InfoBindForm extends Component {
           placeholder="请输入房间号"
           fullWidth={true}
           margin="dense"
-          onChange={this.getFormData}
+          onChange={this.getInputData}
         />
 
         <FormControl fullWidth={true} margin="dense">
           <InputLabel>教务处密码 *</InputLabel>
           <Input
             type={this.state.showPassword_jwc ? "text" : "password"}
-            onChange={this.getFormData}
+            onChange={this.getInputData}
+            name="password_jwc"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -350,7 +302,8 @@ class InfoBindForm extends Component {
           <InputLabel>网上服务大厅密码</InputLabel>
           <Input
             type={this.state.showPassword_dt ? "text" : "password"}
-            onChange={this.getFormData}
+            onChange={this.getInputData}
+            name="password_dt"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -372,7 +325,7 @@ class InfoBindForm extends Component {
           className="page_button"
           variant="contained"
           color="primary"
-          onClick={this.checkForm}
+          onClick={this.handleSub}
         >
           提交
         </Button>
@@ -402,4 +355,5 @@ class InfoBindForm extends Component {
     );
   }
 }
+
 export default withStyles(yhlStyle)(InfoBindForm);
