@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 import WarningIconOverride from "../material/WarningIconOverride";
-import { getDormitory, bindInfo, getCollege } from "../../api/auth";
+import { getDormitory, bindInfo, getCollege } from "../../api/bind";
 import { loStorage } from "../../model/storage";
 
 const yhlStyle = () => ({
@@ -35,6 +35,9 @@ const mastInput = ["sdut_id", "college", "dormitory", "room", "password_jwc"];
 class InfoBindForm extends Component {
   constructor(props) {
     super(props);
+    if (loStorage.get("info")) {
+      this.props.history.replace("/user");
+    }
     this.state = {
       sdut_id: {
         title: "学号",
@@ -72,8 +75,10 @@ class InfoBindForm extends Component {
   }
 
   componentDidMount() {
-    this.getCollege();
-    this.getDormitory();
+    if (this.props.history.location.pathname === "/bind") {
+      this.getCollege();
+      this.getDormitory();
+    }
   }
 
   // 异步获取学院信息

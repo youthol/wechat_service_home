@@ -9,11 +9,11 @@ import Header from "../../components/layout/Header";
 import InfoBindForm from "../../components/infoBindForm";
 import Footer from "../../components/layout/Footer";
 
-const InfoBin = () => {
+const InfoBin = (props) => {
   return (
     <div>
       <Header title="信息绑定"/>
-      <InfoBindForm />
+      <InfoBindForm history={props.history} location={props.location} />
       <Footer />
     </div>
   );

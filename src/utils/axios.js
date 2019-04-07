@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const errorHandle = (status, message) => {
   switch (status) {
     case 400:
@@ -51,7 +50,6 @@ instance.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded;charset=UTF-8";
 instance.defaults.headers.put["Content-Type"] =
   "application/x-www-form-urlencoded;charset=UTF-8";
-
 // 响应拦截器
 instance.interceptors.response.use(
   // 响应成功，对响应的数据进行操作

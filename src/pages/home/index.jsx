@@ -3,9 +3,8 @@ import { Link as RouterLink } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import FooterLink from "@/components/layout/FooterLink";
-import sr from "@/components/scrollreveal";
-import UserImg from "@/common/img/user.png";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 const style = () => ({
   root: {
@@ -42,34 +41,23 @@ class Home extends React.Component {
       }
     };
   }
-  componentDidMount() {
-    // 出场动画
-    sr.reveal(".unit", {
-      origin: "bottom",
-      duration: 1000,
-      delay: 0,
-      opacity: 0,
-      distance: "20px"
-    });
-  }
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <RouterLink to="/info">
-          <img
-            src={UserImg}
-            alt="用户"
-            onClick={this.toInfoBin}
-            className="user-img unit"
-          />
+        <RouterLink to="/bind">
+          <AccountCircle color="action" className="user-img" fontSize="large" />
         </RouterLink>
         <Header title="学生服务" />
         <div style={{ padding: 16 }}>
           <Grid container spacing={16}>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.jidian} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.jidian}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -89,7 +77,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.ecard} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.ecard}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -109,7 +101,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.elec} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.elec}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -129,7 +125,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.hygiene} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.hygiene}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -149,7 +149,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.exam} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.exam}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -169,7 +173,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.cet} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.cet}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -189,7 +197,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.cert} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.cert}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -209,7 +221,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.pth} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.pth}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -229,7 +245,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.calendor} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.calendor}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -249,7 +269,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.bus} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.bus}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -269,7 +293,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.qj} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.qj}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -289,7 +317,11 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link href={this.state.serviceUrl.aboutUs} underline="none" color="textPrimary">
+              <Link
+                href={this.state.serviceUrl.aboutUs}
+                underline="none"
+                color="textPrimary"
+              >
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid

@@ -4,7 +4,7 @@
  */
 import { binding } from "../../components/getCode";
 import { loStorage } from "../../model/storage";
-import { getInfoByCode } from "../../api/auth";
+import { getInfoByCode } from "../../api/bind";
 
 const WechatBin = props => {
   let code = binding();
