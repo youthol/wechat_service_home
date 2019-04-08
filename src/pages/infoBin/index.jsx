@@ -9,14 +9,21 @@ import Header from "../../components/layout/Header";
 import InfoBindForm from "../../components/infoBindForm";
 import Footer from "../../components/layout/Footer";
 
-const InfoBin = (props) => {
-  return (
-    <div>
-      <Header title="信息绑定"/>
-      <InfoBindForm history={props.history} location={props.location} />
-      <Footer />
-    </div>
-  );
-};
+class InfoBin extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div>
+        <Header title="信息绑定" />
+        <InfoBindForm option="绑定" history={this.props.history} />
+        <Footer />
+      </div>
+    );
+  }
+}
 
 export default InfoBin;

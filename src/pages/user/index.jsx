@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { updateUserInfo } from "../../store/action";
 import {
   List,
   ListSubheader,
@@ -6,7 +8,11 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
-  Grid
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from "@material-ui/core";
 import Face from "@material-ui/icons/Face";
 import PermContactCalendar from "@material-ui/icons/PermContactCalendar";
@@ -17,17 +23,41 @@ import AirlineSeatIndividualSuite from "@material-ui/icons/AirlineSeatIndividual
 import { loStorage } from "../../model/storage";
 
 class User extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialogOpen: false
+    };
+  }
   changeInfo = () => {
-    this.props.history.push('/bind');
+    this.props.history.push("/change");
     console.log(this.props.history);
-    
-  }
+  };
 
-  cancelBind = () => {
+  cancelBind = async () => {
+    // 清除本地信息
     loStorage.clear();
-    this.props.history.push('/home');
-  }
+    await this.props.updateUserInfo("");
+    this.props.history.push("/home");
+  };
+
+  agreeDialog = () => {
+    this.cancelBind();
+    this.handleCloseDialog();
+  };
+  cancelDialog = () => {
+    this.handleCloseDialog();
+  };
+  handleOpenDialog = () => {
+    this.setState({
+      dialogOpen: true
+    });
+  };
+  handleCloseDialog = () => {
+    this.setState({
+      dialogOpen: false
+    });
+  };
   render() {
     return (
       <div>
@@ -90,14 +120,37 @@ class User extends Component {
             variant="contained"
             color="default"
             style={{ marginLeft: 20 }}
-            onClick={this.cancelBind}
+            onClick={this.handleOpenDialog}
           >
             退出绑定
           </Button>
         </Grid>
+
+        <Dialog open={this.state.dialogOpen} onClose={this.handleCloseDialog}>
+          <DialogTitle>确定要取消绑定吗？</DialogTitle>
+          <DialogContent />
+          <DialogActions>
+            <Button color="primary" onClick={this.agreeDialog}>
+              确定
+            </Button>
+            <Button color="primary" onClick={this.cancelDialog}>
+              取消
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
 }
 
-export default User;
+const mapStateToProps = (state, ownProps) => ({
+  reduxUserInfo: state.userInfo
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateUserInfo: () => dispatch(updateUserInfo())
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(User);
