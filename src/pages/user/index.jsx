@@ -26,8 +26,33 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialogOpen: false
+      dialogOpen: false,
+      name: "",
+      sdut_id: "",
+      college: "",
+      class: "",
+      dormitory: "",
+      room: ""
     };
+  }
+
+  componentDidMount() {
+    const data = this.props.reduxUserInfo;
+
+    this.setState({
+      name: data.name,
+      sdut_id: data.sdut_id,
+      college: data.college.name,
+      class: "未绑定",
+      dormitory: data.dormitory.description,
+      room: data.room
+    });
+
+    if (!data.class) {
+      this.setState({
+        class: data.class
+      });
+    }
   }
   changeInfo = () => {
     this.props.history.push("/change");
@@ -69,42 +94,42 @@ class User extends Component {
             <ListItemIcon>
               <Face color="primary" />
             </ListItemIcon>
-            <ListItemText primary="姓名" secondary={"刘超"} />
+            <ListItemText primary="姓名" secondary={this.state.name} />
           </ListItem>
 
           <ListItem>
             <ListItemIcon>
               <PermContactCalendar color="primary" />
             </ListItemIcon>
-            <ListItemText primary="学号" secondary={"17110405068"} />
+            <ListItemText primary="学号" secondary={this.state.sdut_id} />
           </ListItem>
 
           <ListItem>
             <ListItemIcon>
               <AccountBalance color="primary" />
             </ListItemIcon>
-            <ListItemText primary="学院" secondary={"电气与电子工程学院"} />
+            <ListItemText primary="学院" secondary={this.state.college} />
           </ListItem>
 
           <ListItem>
             <ListItemIcon>
               <Home color="primary" />
             </ListItemIcon>
-            <ListItemText primary="班级" secondary={"电网1702"} />
+            <ListItemText primary="班级" secondary={this.state.class} />
           </ListItem>
 
           <ListItem>
             <ListItemIcon>
               <Business color="primary" />
             </ListItemIcon>
-            <ListItemText primary="宿舍楼号" secondary={"10号公寓楼"} />
+            <ListItemText primary="宿舍楼号" secondary={this.state.dormitory} />
           </ListItem>
 
           <ListItem>
             <ListItemIcon>
               <AirlineSeatIndividualSuite color="primary" />
             </ListItemIcon>
-            <ListItemText primary="宿舍房间号" secondary={"538"} />
+            <ListItemText primary="宿舍房间号" secondary={this.state.room} />
           </ListItem>
         </List>
         <Grid container style={{ marginTop: 20 }}>
@@ -144,7 +169,7 @@ class User extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo
+  reduxUserInfo: state.userInfo.info
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

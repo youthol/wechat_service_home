@@ -75,7 +75,7 @@ class InfoBindForm extends Component {
       isCollege: collegeState[0],
       dormitoryList: "",
       isDormitory: dormitoryState[0],
-      snackbarState: "",
+      snackbarState: false,
       snackbarOpen: false,
       snackbarVertical: "top",
       snackbarHorizontal: "center",
@@ -86,9 +86,32 @@ class InfoBindForm extends Component {
   componentDidMount() {
     this.getCollege();
     this.getDormitory();
-    // 从本地获取用户信息，自动填入表单
-    // this.props.updateUserInfo();
-    // console.log(this.props.reduxUserInfo);
+    try {
+      const data = this.props.reduxUserInfo;
+      if (this.props.history.location.pathname === "/change") {
+        // 这里要修改
+        this.setState({
+          sdut_id: { content: data.sdut_id },
+          college: { content: data.college.id },
+          class: { content: data.class },
+          dormitory: { content: data.dormitory.id },
+          room: { content: data.room },
+          password_jwc: { content: data.password_jwc },
+          password_dt: { content: data.password_dt }
+        });
+        if (!data.class) {
+          this.setState({
+            class: { content: "" }
+          });
+        } else if (!data.password_dt) {
+          this.setState({
+            password_dt: { content: "" }
+          });
+        }
+      }
+    } catch (error) {
+      this.props.history.replace("/404");
+    }
   }
 
   componentWillUnmount() {
@@ -151,7 +174,9 @@ class InfoBindForm extends Component {
       if (mastInput.hasOwnProperty(key)) {
         const element = mastInput[key];
         if (this.state[element].content === "") {
-          this.handleShowSnackbar(element);
+          console.log(element);
+          
+          this.handleShowSnackbar( "inputError", element);
           return;
         }
       }
@@ -173,20 +198,26 @@ class InfoBindForm extends Component {
       dormitory: parseInt(this.state.dormitory.content),
       room: parseInt(this.state.room.content),
       password_jwc: this.state.password_jwc.content,
-      password_dt: this.state.password_dt
+      password_dt: this.state.password_dt.content
     };
     const header = {
       Authorization: "Bearer " + loStorage.get("meta").access_token
     };
     const data = await bindInfo(subData, header).catch(err => {
       console.log(err);
-      if (err.data.message === "Token has expired") {
+      switch (err.data.message) {
+        case "Token has expired":
+          break;
+        case "学号或网上服务大厅密码错误":
+          this.handleShowSnackbar();
+          break;
+        case "服务端错误":
+          this.handleShowSnackbar();
+          break;
+        default:
+          break;
       }
     });
-    if (!data) {
-      this.handleShowSnackbar();
-      this.props.history.replace("/user");
-    }
   };
 
   handleClickShowPasswordJwc = () => {
@@ -199,16 +230,19 @@ class InfoBindForm extends Component {
       showPassword_dt: !this.state.showPassword_dt
     });
   };
-  handleShowSnackbar = key => {
-    if (!this.state.snackbarState) {
+  handleShowSnackbar = (state = "success", content) => {
+    console.log(this.state);
+    
+    if (state === "inputError") {
       this.setState({
         snackbarOpen: true,
-        snackbarContent: this.state[key].title
+        snackbarContent: "未填写" + this.state[content].title
       });
     } else {
       this.setState({
+        snackbarState: true,
         snackbarOpen: true,
-        snackbarContent: this.props.option
+        snackbarContent: "修改成功！"
       });
     }
   };
@@ -376,9 +410,7 @@ class InfoBindForm extends Component {
             message={
               <span className={classes.message}>
                 <WarningIconOverride />
-                {this.state.snackbarState
-                  ? this.state.snackbarContent
-                  : "未填写" + this.state.snackbarContent}
+                {this.state.snackbarContent}
               </span>
             }
           />
@@ -393,11 +425,11 @@ const NewInfoBindForm = withStyles(yhlStyle)(InfoBindForm);
 
 // redux的全局容器绑定
 const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo
+  reduxUserInfo: state.userInfo.info
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateUserInfo: (data) => dispatch(updateUserInfo(data))
+  updateUserInfo: data => dispatch(updateUserInfo(data))
 });
 
 export default connect(

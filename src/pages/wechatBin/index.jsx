@@ -9,7 +9,9 @@ import { getInfoByCode } from "../../api/bind";
 const WechatBin = props => {
   let code = binding();
   console.log(code);
-  // 封装axios中的get请求接收一个对象
+  loStorage.clear();
+  loStorage.set("code", code);
+  // 封装axios中的get请求,接收一个对象作为参数
   const codeInfo = {
     code: code
   };
@@ -19,7 +21,6 @@ const WechatBin = props => {
       console.log(err);
       return false;
     });
-    loStorage.clear();
     if (!data) {
       props.history.push("/home");
       return;

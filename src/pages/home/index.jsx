@@ -50,6 +50,10 @@ class Home extends React.Component {
       this.setState({
         userPath: "/bind"
       });
+    } else {
+      await this.props.updateUserInfo(loStorage.get("info"));
+      console.log(this.props.reduxUserInfo);
+      
     }
   };
 
@@ -336,7 +340,7 @@ class Home extends React.Component {
 const NewHome = withStyles(style)(Home);
 
 const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo
+  reduxUserInfo: state.userInfo.info
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
