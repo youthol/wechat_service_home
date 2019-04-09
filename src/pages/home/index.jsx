@@ -1,10 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import FooterLink from "@/components/layout/FooterLink";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import { updateUserInfo } from "../../store/action";
+import { loStorage } from "../../model/storage";
 
 const style = () => ({
   root: {
@@ -19,34 +22,46 @@ const style = () => ({
     fontSize: 14
   }
 });
+const serviceUrl = {
+  jidian: "https://lab.youthol.cn/app/wechat-service/jd/#/login", //绩点
+  ecard: "https://lab.youthol.cn/app/wechat-service/ecard/", //一卡通
+  elec: "https://lab.youthol.cn/app/wechat-service/elec-use/index.html#/", //用电查询
+  hygiene: "https://lab.youthol.cn/app/wechat-service/hygiene/index.html#/", //宿舍卫生
+  exam: "https://lab.youthol.cn/app/wechat-service/exam/index.html#/", //考试时间
+  cet: "http://cet.neea.edu.cn/cet/", //四六级成绩
+  cert: "https://lab.youthol.cn/app/wechat-service/cert/#/", //教师资格证
+  pth: "http://youth.sdut.edu.cn/wechat/pth/", //普通话
+  calendor: "https://lab.youthol.cn/app/wechat-service/calendar", //校历
+  bus: "https://lab.youthol.cn/app/wechat-service/bus", //班车
+  qj: "http://720yun.com/t/49f29wa5wbs", //全景
+  aboutUs: "" //关于我们
+};
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      serviceUrl: {
-        jidian: "https://lab.youthol.cn/app/wechat-service/jd/#/login",  //绩点
-        ecard: "https://lab.youthol.cn/app/wechat-service/ecard/",  //一卡通
-        elec:
-          "https://lab.youthol.cn/app/wechat-service/elec-use/index.html#/",  //用电查询
-        hygiene:
-          "https://lab.youthol.cn/app/wechat-service/hygiene/index.html#/",  //宿舍卫生
-        exam: "https://lab.youthol.cn/app/wechat-service/exam/index.html#/",  //考试时间
-        cet: "http://cet.neea.edu.cn/cet/",  //四六级成绩
-        cert: "https://lab.youthol.cn/app/wechat-service/cert/#/",  //教师资格证
-        pth: "http://youth.sdut.edu.cn/wechat/pth/",  //普通话
-        calendor: "https://lab.youthol.cn/app/wechat-service/calendar",  //校历
-        bus: "https://lab.youthol.cn/app/wechat-service/bus",  //班车
-        qj: "http://720yun.com/t/49f29wa5wbs",  //全景
-        aboutUs: ""  //关于我们
-      }
+      userPath: "/user"
     };
   }
+
+  componentDidMount = async () => {
+    if (!loStorage.get("info")) {
+      await this.props.updateUserInfo("");
+      this.setState({
+        userPath: "/bind"
+      });
+    } else {
+      await this.props.updateUserInfo(loStorage.get("info"));
+      console.log(this.props.reduxUserInfo);
+      
+    }
+  };
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <RouterLink to="/bind">
+        <RouterLink to={this.state.userPath}>
           <AccountCircle color="action" className="user-img" fontSize="large" />
         </RouterLink>
         <Header title="学生服务" />
@@ -54,7 +69,7 @@ class Home extends React.Component {
           <Grid container spacing={16}>
             <Grid item xs={4}>
               <Link
-                href={this.state.serviceUrl.jidian}
+                href={serviceUrl.jidian}
                 underline="none"
                 color="textPrimary"
               >
@@ -78,7 +93,7 @@ class Home extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <Link
-                href={this.state.serviceUrl.ecard}
+                href={serviceUrl.ecard}
                 underline="none"
                 color="textPrimary"
               >
@@ -101,11 +116,7 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link
-                href={this.state.serviceUrl.elec}
-                underline="none"
-                color="textPrimary"
-              >
+              <Link href={serviceUrl.elec} underline="none" color="textPrimary">
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -126,7 +137,7 @@ class Home extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <Link
-                href={this.state.serviceUrl.hygiene}
+                href={serviceUrl.hygiene}
                 underline="none"
                 color="textPrimary"
               >
@@ -149,11 +160,7 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link
-                href={this.state.serviceUrl.exam}
-                underline="none"
-                color="textPrimary"
-              >
+              <Link href={serviceUrl.exam} underline="none" color="textPrimary">
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -173,11 +180,7 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link
-                href={this.state.serviceUrl.cet}
-                underline="none"
-                color="textPrimary"
-              >
+              <Link href={serviceUrl.cet} underline="none" color="textPrimary">
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -197,11 +200,7 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link
-                href={this.state.serviceUrl.cert}
-                underline="none"
-                color="textPrimary"
-              >
+              <Link href={serviceUrl.cert} underline="none" color="textPrimary">
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -221,11 +220,7 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link
-                href={this.state.serviceUrl.pth}
-                underline="none"
-                color="textPrimary"
-              >
+              <Link href={serviceUrl.pth} underline="none" color="textPrimary">
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -246,7 +241,7 @@ class Home extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <Link
-                href={this.state.serviceUrl.calendor}
+                href={serviceUrl.calendor}
                 underline="none"
                 color="textPrimary"
               >
@@ -269,11 +264,7 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link
-                href={this.state.serviceUrl.bus}
-                underline="none"
-                color="textPrimary"
-              >
+              <Link href={serviceUrl.bus} underline="none" color="textPrimary">
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -293,11 +284,7 @@ class Home extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Link
-                href={this.state.serviceUrl.qj}
-                underline="none"
-                color="textPrimary"
-              >
+              <Link href={serviceUrl.qj} underline="none" color="textPrimary">
                 <Paper classes={{ root: classes.root }}>
                   <Grid container direction="column">
                     <Grid
@@ -318,7 +305,7 @@ class Home extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <Link
-                href={this.state.serviceUrl.aboutUs}
+                href={serviceUrl.aboutUs}
                 underline="none"
                 color="textPrimary"
               >
@@ -350,4 +337,16 @@ class Home extends React.Component {
   }
 }
 
-export default withStyles(style)(Home);
+const NewHome = withStyles(style)(Home);
+
+const mapStateToProps = (state, ownProps) => ({
+  reduxUserInfo: state.userInfo.info
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateUserInfo: data => dispatch(updateUserInfo(data))
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewHome);

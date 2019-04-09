@@ -1,8 +1,8 @@
-import ajaxReducer from './ajaxReducer';
 import { combineReducers} from 'redux';
+import userInfo from './userInfo';
 
 export const rootReducer = combineReducers({
-  ajaxReducer,
+  userInfo,
   // 用来放置其他renducer
   // ...
 });
