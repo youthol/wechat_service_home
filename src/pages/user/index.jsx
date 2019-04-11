@@ -37,22 +37,26 @@ class User extends Component {
   }
 
   componentDidMount() {
-    const data = this.props.reduxUserInfo;
-
-    this.setState({
-      name: data.name,
-      sdut_id: data.sdut_id,
-      college: data.college.name,
-      class: "未绑定",
-      dormitory: data.dormitory.description,
-      room: data.room
-    });
-
-    if (!data.class) {
+    try {
+      const data = this.props.reduxUserInfo;
       this.setState({
-        class: data.class
+        name: data.name,
+        sdut_id: data.sdut_id,
+        college: data.college.name,
+        class: "未绑定",
+        dormitory: data.dormitory.description,
+        room: data.room
       });
+
+      if (data.class) {
+        this.setState({
+          class: data.class
+        });
+      }
+    } catch (error) {
+      this.props.history.replace('home')
     }
+    
   }
   changeInfo = () => {
     this.props.history.push("/change");
@@ -61,7 +65,7 @@ class User extends Component {
 
   cancelBind = async () => {
     // 清除本地信息
-    loStorage.clear();
+    loStorage.remove('info');
     await this.props.updateUserInfo("");
     this.props.history.push("/home");
   };

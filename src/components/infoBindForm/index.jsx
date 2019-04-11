@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {
@@ -18,7 +17,6 @@ import { red, green } from "@material-ui/core/colors";
 import WarningIconOverride from "../material/WarningIconOverride";
 import { getDormitory, bindInfo, getCollege } from "../../api/bind";
 import { loStorage } from "../../model/storage";
-import { updateUserInfo } from "../../store/action";
 
 const yhlStyle = () => ({
   success: {
@@ -86,33 +84,36 @@ class InfoBindForm extends Component {
   componentDidMount() {
     this.getCollege();
     this.getDormitory();
-    try {
-      const data = this.props.reduxUserInfo;
-      if (this.props.history.location.pathname === "/change") {
-        // 这里要修改
-        this.setState({
-          sdut_id: { content: data.sdut_id },
-          college: { content: data.college.id },
-          class: { content: data.class },
-          dormitory: { content: data.dormitory.id },
-          room: { content: data.room },
-          password_jwc: { content: data.password_jwc },
-          password_dt: { content: data.password_dt }
-        });
-        if (!data.class) {
-          this.setState({
-            class: { content: "" }
-          });
-        } else if (!data.password_dt) {
-          this.setState({
-            password_dt: { content: "" }
-          });
-        }
-      }
-    } catch (error) {
-      this.props.history.replace("/404");
-    }
   }
+
+  componentWillReceiveProps = nextProps => {
+    const { fatherState } = nextProps;
+    if (fatherState) {
+      this.setState({
+        sdut_id: Object.assign({}, this.state.sdut_id, {
+          content: fatherState.sdut_id
+        }),
+        college: Object.assign({}, this.state.college, {
+          content: fatherState.college
+        }),
+        class: Object.assign({}, this.state.class, {
+          content: fatherState.class
+        }),
+        dormitory: Object.assign({}, this.state.dormitory, {
+          content: fatherState.dormitory
+        }),
+        room: Object.assign({}, this.state.room, {
+          content: fatherState.room
+        }),
+        password_jwc: Object.assign({}, this.state.password_jwc, {
+          content: fatherState.password_jwc
+        }),
+        password_dt: Object.assign({}, this.state.password_dt, {
+          content: fatherState.password_dt
+        })
+      });
+    }
+  };
 
   componentWillUnmount() {
     this.setState = (state, callback) => {
@@ -151,11 +152,14 @@ class InfoBindForm extends Component {
 
   // 选择框
   getSelData = event => {
+    console.log(event.target.value);
+
     this.setState({
-      [event.target.name]: {
+      [event.target.name]: Object.assign({}, this.state[event.target.name], {
         content: event.target.value
-      }
+      })
     });
+    console.log(event.target.value);
   };
 
   // 输入框
@@ -175,8 +179,8 @@ class InfoBindForm extends Component {
         const element = mastInput[key];
         if (this.state[element].content === "") {
           console.log(element);
-          
-          this.handleShowSnackbar( "inputError", element);
+
+          this.handleShowSnackbar("inputError", element);
           return;
         }
       }
@@ -191,33 +195,39 @@ class InfoBindForm extends Component {
   };
 
   bindInfo = async () => {
+    console.log(this.state);
+
     const subData = {
       sdut_id: this.state.sdut_id.content,
       college: parseInt(this.state.college.content),
-      class: this.state.class,
+      class: this.state.class.content,
       dormitory: parseInt(this.state.dormitory.content),
       room: parseInt(this.state.room.content),
       password_jwc: this.state.password_jwc.content,
       password_dt: this.state.password_dt.content
     };
+
+    console.log(subData);
+
     const header = {
       Authorization: "Bearer " + loStorage.get("meta").access_token
     };
-    const data = await bindInfo(subData, header).catch(err => {
+    await bindInfo(subData, header).catch(err => {
       console.log(err);
       switch (err.data.message) {
         case "Token has expired":
           break;
         case "学号或网上服务大厅密码错误":
           this.handleShowSnackbar();
-          break;
+          return;
         case "服务端错误":
           this.handleShowSnackbar();
-          break;
+          return;
         default:
-          break;
+          return;
       }
     });
+    this.handleShowSnackbar();
   };
 
   handleClickShowPasswordJwc = () => {
@@ -231,8 +241,6 @@ class InfoBindForm extends Component {
     });
   };
   handleShowSnackbar = (state = "success", content) => {
-    console.log(this.state);
-    
     if (state === "inputError") {
       this.setState({
         snackbarOpen: true,
@@ -244,6 +252,10 @@ class InfoBindForm extends Component {
         snackbarOpen: true,
         snackbarContent: "修改成功！"
       });
+
+      setTimeout(() => {
+        this.props.history.push("/user");
+      }, 1000);
     }
   };
   handleCloseSnackbar = () => {
@@ -420,19 +432,4 @@ class InfoBindForm extends Component {
   }
 }
 
-// 注入material的classes
-const NewInfoBindForm = withStyles(yhlStyle)(InfoBindForm);
-
-// redux的全局容器绑定
-const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo.info
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateUserInfo: data => dispatch(updateUserInfo(data))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewInfoBindForm);
+export default withStyles(yhlStyle)(InfoBindForm);

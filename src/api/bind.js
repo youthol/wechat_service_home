@@ -4,8 +4,8 @@ export const getInfoByCode = (params = {}) => {
   return http.get('/service/authorization', params);
 }
 
-export const getInfoByToken = (params = {}) => {
-  return http.get('/service/user', params);
+export const getInfoByToken = (header) => {
+  return http.get("/service/user", null, header);
 }
 
 export const bindInfo = (data = {}, header) => {

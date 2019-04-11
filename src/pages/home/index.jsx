@@ -52,7 +52,7 @@ class Home extends React.Component {
       });
     } else {
       await this.props.updateUserInfo(loStorage.get("info"));
-      console.log(this.props.reduxUserInfo);
+      // console.log(this.props.reduxUserInfo);
       
     }
   };
