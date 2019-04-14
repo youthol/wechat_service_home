@@ -8,28 +8,12 @@ import {
   InputLabel,
   Input,
   InputAdornment,
-  IconButton,
-  Snackbar,
-  SnackbarContent,
-  withStyles
+  IconButton
 } from "@material-ui/core";
-import { red, green } from "@material-ui/core/colors";
-import WarningIconOverride from "../material/WarningIconOverride";
+
 import { getDormitory, bindInfo, getCollege } from "../../api/bind";
 import { loStorage } from "../../model/storage";
-
-const yhlStyle = () => ({
-  success: {
-    backgroundColor: green[600]
-  },
-  error: {
-    backgroundColor: red[500]
-  },
-  message: {
-    display: "flex",
-    alignItems: "center"
-  }
-});
+import SnackbarOverride from "../material/SnackbarOverride";
 
 const collegeState = ["学院信息获取中..", "学院信息获取失败！"];
 const dormitoryState = ["宿舍信息获取中..", "宿舍信息获取失败！"];
@@ -73,11 +57,9 @@ class InfoBindForm extends Component {
       isCollege: collegeState[0],
       dormitoryList: "",
       isDormitory: dormitoryState[0],
-      snackbarState: false,
       snackbarOpen: false,
-      snackbarVertical: "top",
-      snackbarHorizontal: "center",
-      snackbarContent: ""
+      snackbarContent: "",
+      snackbarState: "success"
     };
   }
 
@@ -86,6 +68,7 @@ class InfoBindForm extends Component {
     this.getDormitory();
   }
 
+  // 修改信息时，将信息自动填入表单
   componentWillReceiveProps = nextProps => {
     const { fatherState } = nextProps;
     if (fatherState) {
@@ -115,6 +98,7 @@ class InfoBindForm extends Component {
     }
   };
 
+  // 清除异步请求
   componentWillUnmount() {
     this.setState = (state, callback) => {
       return;
@@ -152,23 +136,20 @@ class InfoBindForm extends Component {
 
   // 选择框
   getSelData = event => {
-    console.log(event.target.value);
-
     this.setState({
       [event.target.name]: Object.assign({}, this.state[event.target.name], {
         content: event.target.value
       })
     });
-    console.log(event.target.value);
   };
 
   // 输入框
   getInputData = e => {
     const inputName = e.target.name;
     this.setState({
-      [inputName]: {
+      [inputName]: Object.assign({}, this.state[inputName], {
         content: e.target.value
-      }
+      })
     });
   };
 
@@ -195,8 +176,6 @@ class InfoBindForm extends Component {
   };
 
   bindInfo = async () => {
-    console.log(this.state);
-
     const subData = {
       sdut_id: this.state.sdut_id.content,
       college: parseInt(this.state.college.content),
@@ -206,9 +185,6 @@ class InfoBindForm extends Component {
       password_jwc: this.state.password_jwc.content,
       password_dt: this.state.password_dt.content
     };
-
-    console.log(subData);
-
     const header = {
       Authorization: "Bearer " + loStorage.get("meta").access_token
     };
@@ -227,6 +203,8 @@ class InfoBindForm extends Component {
           return;
       }
     });
+    console.log(1);
+    
     this.handleShowSnackbar();
   };
 
@@ -241,14 +219,17 @@ class InfoBindForm extends Component {
     });
   };
   handleShowSnackbar = (state = "success", content) => {
+    console.log(1);
+    
     if (state === "inputError") {
       this.setState({
+        snackbarState: "error",
         snackbarOpen: true,
         snackbarContent: "未填写" + this.state[content].title
       });
     } else {
       this.setState({
-        snackbarState: true,
+        snackbarState: "success",
         snackbarOpen: true,
         snackbarContent: "修改成功！"
       });
@@ -264,7 +245,6 @@ class InfoBindForm extends Component {
     });
   };
   render() {
-    const { classes } = this.props;
     return (
       <div className="page_bd">
         <TextField
@@ -404,32 +384,15 @@ class InfoBindForm extends Component {
           提交
         </Button>
 
-        <Snackbar
-          anchorOrigin={{
-            vertical: this.state.snackbarVertical,
-            horizontal: this.state.snackbarHorizontal
-          }}
+        <SnackbarOverride
+          content={this.state.snackbarContent}
+          state={this.state.snackbarState}
           open={this.state.snackbarOpen}
-          onClose={this.handleCloseSnackbar}
-          autoHideDuration={1500}
-        >
-          <SnackbarContent
-            classes={
-              this.state.snackbarState
-                ? { root: classes.success }
-                : { root: classes.error }
-            }
-            message={
-              <span className={classes.message}>
-                <WarningIconOverride />
-                {this.state.snackbarContent}
-              </span>
-            }
-          />
-        </Snackbar>
+          close={this.handleCloseSnackbar}
+        />
       </div>
     );
   }
 }
 
-export default withStyles(yhlStyle)(InfoBindForm);
+export default InfoBindForm;
