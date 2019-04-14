@@ -4,6 +4,7 @@ import InfoBindForm from "../../components/form/InfoBind";
 import Footer from "../../components/layout/Footer";
 import { connect } from "react-redux";
 import { updateUserInfo } from "../../store/action";
+import { getInfoByToken } from "../../api/bind";
 
 class InfoChan extends Component {
   constructor(props) {
@@ -49,6 +50,11 @@ class InfoChan extends Component {
       }
     }
   };
+
+  setLocalInfo = () => {
+    const data = getInfoByToken();
+    console.log(data);
+  }
   render() {
     return (
       <div>

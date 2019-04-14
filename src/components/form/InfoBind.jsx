@@ -235,7 +235,6 @@ class InfoBindForm extends Component {
         snackbarContent: "修改成功！",
         loading: false
       });
-
       setTimeout(() => {
         this.props.history.push("/user");
       }, 1000);

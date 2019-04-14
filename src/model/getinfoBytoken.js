@@ -19,10 +19,10 @@ const infoByToken = props => {
     // 成功
     console.log(data);
     loStorage.set("info", data.data[0]);
+    return data;
   };
 
-  getInfo();
-  return null;
+  return getInfo();
 };
 
 export default infoByToken;

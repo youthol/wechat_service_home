@@ -7,6 +7,7 @@ import './common/img/iconfont/iconfont.css';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import {  pink, blue } from "@material-ui/core/colors";
 import { store } from "./store";
+import bindwechat from "./model/bindwechat";
 
 const theme = createMuiTheme({
   typography: {
@@ -20,6 +21,10 @@ const theme = createMuiTheme({
 })
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    bindwechat();
+  }
   render() {
     return (
       <div>

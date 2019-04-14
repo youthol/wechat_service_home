@@ -36,21 +36,24 @@ class User extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    await this.props.updateUserInfo(loStorage.get('info'));
     const data = this.props.reduxUserInfo;
-    this.setState({
-      name: data.name,
-      sdut_id: data.sdut_id,
-      college: data.college.name,
-      class: "未绑定",
-      dormitory: data.dormitory.description,
-      room: data.room
-    });
-
-    if (data.class) {
+    if (data) {
       this.setState({
-        class: data.class
+        name: data.name,
+        sdut_id: data.sdut_id,
+        college: data.college.name,
+        class: "未绑定",
+        dormitory: data.dormitory.description,
+        room: data.room
       });
+
+      if (data.class) {
+        this.setState({
+          class: data.class
+        });
+      }
     }
   }
   changeInfo = () => {

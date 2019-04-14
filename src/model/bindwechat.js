@@ -6,7 +6,7 @@ import { binding } from "./getcode";
 import { loStorage } from "./storage";
 import { getInfoByCode } from "../api/bind";
 
-const wechatBin = props => {
+const bindwechat = props => {
   let code = binding();
   console.log(code);
   // 封装axios中的get请求,接收一个对象作为参数
@@ -31,4 +31,4 @@ const wechatBin = props => {
   return null;
 };
 
-export default wechatBin;
+export default bindwechat;
