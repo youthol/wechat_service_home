@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {
-  Button,
   TextField,
   FormControl,
   InputLabel,
@@ -14,6 +13,7 @@ import {
 import { getDormitory, bindInfo, getCollege } from "../../api/bind";
 import { loStorage } from "../../model/storage";
 import SnackbarOverride from "../material/SnackbarOverride";
+import ButtonOverride from "../material/ButtonOverride";
 
 const collegeState = ["学院信息获取中..", "学院信息获取失败！"];
 const dormitoryState = ["宿舍信息获取中..", "宿舍信息获取失败！"];
@@ -59,7 +59,8 @@ class InfoBindForm extends Component {
       isDormitory: dormitoryState[0],
       snackbarOpen: false,
       snackbarContent: "",
-      snackbarState: "success"
+      snackbarState: "success",
+      loading: false
     };
   }
 
@@ -171,6 +172,9 @@ class InfoBindForm extends Component {
 
   handleSub = () => {
     if (this.checkForm()) {
+      this.setState({
+        loading: true
+      })
       this.bindInfo();
     }
   };
@@ -203,8 +207,6 @@ class InfoBindForm extends Component {
           return;
       }
     });
-    console.log(1);
-    
     this.handleShowSnackbar();
   };
 
@@ -220,7 +222,7 @@ class InfoBindForm extends Component {
   };
   handleShowSnackbar = (state = "success", content) => {
     console.log(1);
-    
+
     if (state === "inputError") {
       this.setState({
         snackbarState: "error",
@@ -231,7 +233,8 @@ class InfoBindForm extends Component {
       this.setState({
         snackbarState: "success",
         snackbarOpen: true,
-        snackbarContent: "修改成功！"
+        snackbarContent: "修改成功！",
+        loading: false
       });
 
       setTimeout(() => {
@@ -374,15 +377,17 @@ class InfoBindForm extends Component {
             }
           />
         </FormControl>
-        <Button
+        <ButtonOverride
           fullWidth={true}
           className="page_button"
           variant="contained"
           color="primary"
+          disabled={this.state.loading? true: false}
+          loading={this.state.loading}
           onClick={this.handleSub}
         >
-          提交
-        </Button>
+          {this.state.loading? "提交中": "提交"}
+        </ButtonOverride>
 
         <SnackbarOverride
           content={this.state.snackbarContent}
