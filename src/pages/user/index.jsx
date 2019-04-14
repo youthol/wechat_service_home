@@ -52,8 +52,6 @@ class User extends Component {
         class: data.class
       });
     }
-
-    this.props.history.replace("home");
   }
   changeInfo = () => {
     this.props.history.push("/change");
@@ -64,7 +62,7 @@ class User extends Component {
     // 清除本地信息
     loStorage.remove("info");
     await this.props.updateUserInfo("");
-    this.props.history.push("/home");
+    this.props.history.push("/");
   };
 
   agreeDialog = () => {

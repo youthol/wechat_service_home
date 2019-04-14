@@ -46,12 +46,15 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    loStorage.clear();
     wechatBin();
-    if (!this.props.reduxUserInfo) {
-      this.setState({
-        userPath: "/bind"
-      });
+    // 这里还要改
+    if (loStorage.get("info")) {
+      await this.props.updateUserInfo(loStorage.get("info"));
+      if (!this.props.reduxUserInfo) {
+        this.setState({
+          userPath: "/bind"
+        });
+      }
     }
   };
 

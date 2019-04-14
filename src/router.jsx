@@ -7,15 +7,8 @@ import Home from "./pages/home";
 import User from "./pages/user";
 import { connect } from "react-redux";
 import { updateUserInfo } from "./store/action";
-import { loStorage } from "./model/storage";
 
 class Router extends Component {
-  // 任意页面刷新后，redux会被重置，这里一次设置
-  componentWillMount() {
-    window.onbeforeunload = async () => {
-      await this.props.updateUserInfo(loStorage("info"));
-    };
-  }
   render() {
     return (
       <div>
