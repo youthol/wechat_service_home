@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Header from "../../components/layout/Header";
-import InfoBindForm from "../../components/infoBindForm";
+import InfoBindForm from "../../components/form/InfoBind";
 import Footer from "../../components/layout/Footer";
 import { connect } from "react-redux";
 import { updateUserInfo } from "../../store/action";
-import { loStorage } from "../../model/storage";
 
 class InfoChan extends Component {
   constructor(props) {
@@ -21,8 +20,7 @@ class InfoChan extends Component {
   }
 
   componentDidMount = async () => {
-    if (loStorage.get("info")) {
-      await this.props.updateUserInfo(loStorage.get("info"));
+    if (this.props.reduxUserInfo) {
       const data = this.props.reduxUserInfo;
       this.setState({
         sdut_id: data.sdut_id,

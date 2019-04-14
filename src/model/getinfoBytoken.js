@@ -3,10 +3,10 @@
  * （不需要渲染）
  * 成功则跳转至用户信息页面
  */
-import { getInfoByToken } from "../../api/bind";
-import { loStorage } from "../../model/storage";
+import { getInfoByToken } from "../api/bind";
+import { loStorage } from "./storage";
 
-const InfoByToken = props => {
+const infoByToken = props => {
   // 异步使用access_token来获取信息
   const getInfo = async () => {
     const header = {
@@ -14,16 +14,15 @@ const InfoByToken = props => {
     };
     const data = await getInfoByToken(header).catch(() => {
       // 失败
-      // 
+      //
     });
     // 成功
     console.log(data);
-    loStorage.set('info', data.data[0])
-    props.history.replace("/user");
+    loStorage.set("info", data.data[0]);
   };
 
   getInfo();
   return null;
 };
 
-export default InfoByToken;
+export default infoByToken;

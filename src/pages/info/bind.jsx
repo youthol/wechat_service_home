@@ -6,21 +6,18 @@
  */
 import React from "react";
 import Header from "../../components/layout/Header";
-import InfoBindForm from "../../components/infoBindForm";
+import InfoBindForm from "../../components/form/InfoBind";
 import Footer from "../../components/layout/Footer";
 import { Link } from "@material-ui/core";
+import infoByToken from "../../model/getinfoBytoken";
 
 class InfoBin extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   // 曾经绑定过信息，一键登录
   getInfoByToken = () => {
-    this.props.history.replace('/token');
-  }
-  
+    infoByToken();
+    this.props.history.replace('/user');
+  };
+
   render() {
     return (
       <div>

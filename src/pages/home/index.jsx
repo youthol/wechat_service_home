@@ -7,6 +7,7 @@ import FooterLink from "@/components/layout/FooterLink";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { updateUserInfo } from "../../store/action";
+import wechatBin from "../../model/bindwechat";
 import { loStorage } from "../../model/storage";
 
 const style = () => ({
@@ -45,15 +46,12 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    if (!loStorage.get("info")) {
-      await this.props.updateUserInfo("");
+    loStorage.clear();
+    wechatBin();
+    if (!this.props.reduxUserInfo) {
       this.setState({
         userPath: "/bind"
       });
-    } else {
-      await this.props.updateUserInfo(loStorage.get("info"));
-      // console.log(this.props.reduxUserInfo);
-      
     }
   };
 

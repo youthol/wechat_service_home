@@ -9,7 +9,6 @@ import {
   InputAdornment,
   IconButton
 } from "@material-ui/core";
-
 import { getDormitory, bindInfo, getCollege } from "../../api/bind";
 import { loStorage } from "../../model/storage";
 import SnackbarOverride from "../material/SnackbarOverride";
