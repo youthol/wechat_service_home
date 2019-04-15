@@ -1,5 +1,6 @@
 const initState = {
-  info: ''
+  info: '',
+  meta: ''
 };
 
 function updateUserInfo(state = initState, action) {
