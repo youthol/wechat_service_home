@@ -43,13 +43,13 @@ const errorHandle = (status, message) => {
 };
 
 const instance = axios.create();
-
 instance.defaults.baseURL = "https://api.youthol.cn/api";
 instance.defaults.timeout = 3000;
 instance.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded;charset=UTF-8";
 instance.defaults.headers.put["Content-Type"] =
   "application/x-www-form-urlencoded;charset=UTF-8";
+
 // 响应拦截器
 instance.interceptors.response.use(
   // 响应成功，对响应的数据进行操作

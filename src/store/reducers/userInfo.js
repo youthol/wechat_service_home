@@ -3,12 +3,12 @@ let initState = {
   meta: ''
 };
 
-
-function updateUserInfo(state = initState, action) {
+function updateUserInfo(state = initState, action) {  
   switch (action.type) {
     case "UPDATE_USERINFO":
       return {
-        info: action.info
+        ...initState,
+        ...action.info
       };
     default:
       return state;

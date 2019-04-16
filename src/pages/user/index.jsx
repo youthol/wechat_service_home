@@ -36,20 +36,20 @@ class User extends Component {
   }
 
   componentDidMount = async () => {
-    const data = this.props.reduxUserInfo;
-    if (data) {
+    if (this.props.reduxUserInfo) {
+      const { info } = this.props.reduxUserInfo;
       this.setState({
-        name: data.name,
-        sdut_id: data.sdut_id,
-        college: data.college.name,
+        name: info.name,
+        sdut_id: info.sdut_id,
+        college: info.college.name,
         class: "未绑定",
-        dormitory: data.dormitory.description,
-        room: data.room
+        dormitory: info.dormitory.description,
+        room: info.room
       });
 
-      if (data.class) {
+      if (info.class) {
         this.setState({
-          class: data.class
+          class: info.class
         });
       }
     }
@@ -61,8 +61,8 @@ class User extends Component {
 
   cancelBind = async () => {
     // 清除本地信息
-    // await this.props.updateUserInfo("");
-    this.props.history.push("/");
+    await this.props.updateUserInfo({info: "", meta: ""});
+    this.props.history.push("/home");
   };
 
   agreeDialog = () => {
@@ -168,7 +168,7 @@ class User extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo.info
+  reduxUserInfo: state.userInfo
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

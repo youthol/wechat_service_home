@@ -5,8 +5,7 @@ import InfoBin from "./pages/info/bind.jsx";
 import InfoChan from "./pages/info/change.jsx";
 import Home from "./pages/home";
 import User from "./pages/user";
-import { connect } from "react-redux";
-import { updateUserInfo } from "./store/action";
+import Entry from "./pages/entry";
 
 class Router extends Component {
   render() {
@@ -14,7 +13,8 @@ class Router extends Component {
       <div>
         <HashRouter>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Entry} />
+            <Route exact path="/home" component={Home} />
             <Route exact path="/404" component={PageNotFou} />
             <Route exact path="/bind" component={InfoBin} />
             <Route exact path="/change" component={InfoChan} />
@@ -26,15 +26,4 @@ class Router extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo.info
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateUserInfo: () => dispatch(updateUserInfo())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Router);
+export default Router;

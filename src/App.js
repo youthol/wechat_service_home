@@ -7,7 +7,7 @@ import "./common/img/iconfont/iconfont.css";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { pink, blue } from "@material-ui/core/colors";
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from './store';
+import { store, persistor } from "./store";
 
 const theme = createMuiTheme({
   typography: {

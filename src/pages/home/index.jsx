@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import FooterLink from "@/components/layout/FooterLink";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { updateUserInfo } from "../../store/action";
@@ -32,10 +31,19 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    this.setState({
-      times: 0,
-      userPath: "/user"
-    });
+    
+      console.log(this.props.reduxUserInfo);
+      
+    if (this.props.location.resData) {
+      const { data, meta } = this.props.location.resData;
+      await this.props.updateUserInfo({ info: data, meta });
+    }
+    if (this.props.reduxUserInfo.info) {
+      this.setState({
+        times: 0,
+        userPath: "/user"
+      });
+    }
   };
 
   render() {
@@ -319,7 +327,7 @@ class Home extends React.Component {
 const NewHome = withStyles(style)(Home);
 
 const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo.info
+  reduxUserInfo: state.userInfo
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
