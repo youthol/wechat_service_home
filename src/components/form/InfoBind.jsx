@@ -10,7 +10,6 @@ import {
   IconButton
 } from "@material-ui/core";
 import { getDormitory, bindInfo, getCollege } from "../../api/bind";
-import { loStorage } from "../../model/storage";
 import SnackbarOverride from "../material/SnackbarOverride";
 import ButtonOverride from "../material/ButtonOverride";
 
@@ -189,7 +188,7 @@ class InfoBindForm extends Component {
       password_dt: this.state.password_dt.content
     };
     const header = {
-      Authorization: "Bearer " + loStorage.get("meta").access_token
+      // Authorization: "Bearer " + loStorage.get("meta").access_token
     };
     await bindInfo(subData, header).catch(err => {
       console.log(err);

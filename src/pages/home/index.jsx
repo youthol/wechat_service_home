@@ -7,7 +7,7 @@ import FooterLink from "@/components/layout/FooterLink";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { updateUserInfo } from "../../store/action";
-import { loStorage } from "../../model/storage";
+import { serviceUrl } from "../../api/service";
 
 const style = () => ({
   root: {
@@ -22,20 +22,7 @@ const style = () => ({
     fontSize: 14
   }
 });
-const serviceUrl = {
-  jidian: "https://lab.youthol.cn/app/wechat-service/jd/#/login", //绩点
-  ecard: "https://lab.youthol.cn/app/wechat-service/ecard/", //一卡通
-  elec: "https://lab.youthol.cn/app/wechat-service/elec-use/index.html#/", //用电查询
-  hygiene: "https://lab.youthol.cn/app/wechat-service/hygiene/index.html#/", //宿舍卫生
-  exam: "https://lab.youthol.cn/app/wechat-service/exam/index.html#/", //考试时间
-  cet: "http://cet.neea.edu.cn/cet/", //四六级成绩
-  cert: "https://lab.youthol.cn/app/wechat-service/cert/#/", //教师资格证
-  pth: "http://youth.sdut.edu.cn/wechat/pth/", //普通话
-  calendor: "https://lab.youthol.cn/app/wechat-service/calendar", //校历
-  bus: "https://lab.youthol.cn/app/wechat-service/bus", //班车
-  qj: "http://720yun.com/t/49f29wa5wbs", //全景
-  aboutUs: "" //关于我们
-};
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -45,13 +32,10 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    if (loStorage.get("info")) {
-      await this.props.updateUserInfo(loStorage.get("info"));
-      this.setState({
-        times: 0,
-        userPath: "/user"
-      });
-    }
+    this.setState({
+      times: 0,
+      userPath: "/user"
+    });
   };
 
   render() {
@@ -326,9 +310,7 @@ class Home extends React.Component {
             </Grid>
           </Grid>
         </div>
-        <Footer>
-          <FooterLink name="首页" url="" />
-        </Footer>
+        <Footer />
       </div>
     );
   }

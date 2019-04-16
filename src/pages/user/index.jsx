@@ -20,7 +20,6 @@ import Home from "@material-ui/icons/Home";
 import AccountBalance from "@material-ui/icons/AccountBalance";
 import Business from "@material-ui/icons/Business";
 import AirlineSeatIndividualSuite from "@material-ui/icons/AirlineSeatIndividualSuite";
-import { loStorage } from "../../model/storage";
 
 class User extends Component {
   constructor(props) {
@@ -37,7 +36,6 @@ class User extends Component {
   }
 
   componentDidMount = async () => {
-    await this.props.updateUserInfo(loStorage.get('info'));
     const data = this.props.reduxUserInfo;
     if (data) {
       this.setState({
@@ -63,8 +61,7 @@ class User extends Component {
 
   cancelBind = async () => {
     // 清除本地信息
-    loStorage.remove("info");
-    await this.props.updateUserInfo("");
+    // await this.props.updateUserInfo("");
     this.props.history.push("/");
   };
 

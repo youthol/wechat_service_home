@@ -1,7 +1,8 @@
-const initState = {
+let initState = {
   info: '',
   meta: ''
 };
+
 
 function updateUserInfo(state = initState, action) {
   switch (action.type) {
