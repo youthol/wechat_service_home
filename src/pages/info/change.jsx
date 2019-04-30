@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import Header from "../../components/layout/Header";
 import InfoBindForm from "../../components/form/InfoBind";
-import Footer from "../../components/layout/Footer";
 import { connect } from "react-redux";
 import { updateUserInfo } from "../../store/action";
 import { getInfoByToken } from "../../api/bind";
+import Layout from '../../components/Layout';
 
 class InfoChan extends Component {
   constructor(props) {
@@ -54,17 +53,17 @@ class InfoChan extends Component {
   setLocalInfo = () => {
     const data = getInfoByToken();
     console.log(data);
-  }
+  };
   render() {
     return (
       <div>
-        <Header title="修改信息" />
-        <InfoBindForm
-          option="修改"
-          history={this.props.history}
-          fatherState={this.state}
-        />
-        <Footer />
+        <Layout title="修改信息">
+          <InfoBindForm
+            option="修改"
+            history={this.props.history}
+            fatherState={this.state}
+          />
+        </Layout>
       </div>
     );
   }

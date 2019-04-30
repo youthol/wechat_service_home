@@ -45,12 +45,12 @@ class InfoBindForm extends Component {
         title: "教务处密码",
         content: ""
       },
-      password_dt: {
-        title: "网上服务大厅密码",
-        content: ""
-      },
+      // password_dt: {
+      //   title: "网上服务大厅密码",
+      //   content: ""
+      // },
       showPassword_jwc: false,
-      showPassword_dt: false,
+      // showPassword_dt: false,
       collegeList: "",
       isCollege: collegeState[0],
       dormitoryList: "",
@@ -90,9 +90,9 @@ class InfoBindForm extends Component {
         password_jwc: Object.assign({}, this.state.password_jwc, {
           content: fatherState.password_jwc
         }),
-        password_dt: Object.assign({}, this.state.password_dt, {
-          content: fatherState.password_dt
-        })
+        // password_dt: Object.assign({}, this.state.password_dt, {
+        //   content: fatherState.password_dt
+        // })
       });
     }
   };
@@ -184,8 +184,8 @@ class InfoBindForm extends Component {
       class: this.state.class.content,
       dormitory: parseInt(this.state.dormitory.content),
       room: parseInt(this.state.room.content),
-      password_jwc: this.state.password_jwc.content,
-      password_dt: this.state.password_dt.content
+      password_jwc: this.state.password_jwc.content
+      // password_dt: this.state.password_dt.content
     };
     const header = {
       // Authorization: "Bearer " + loStorage.get("meta").access_token
@@ -351,7 +351,7 @@ class InfoBindForm extends Component {
             }
           />
         </FormControl>
-        <FormControl fullWidth={true} margin="dense">
+        {/* <FormControl fullWidth={true} margin="dense">
           <InputLabel>网上服务大厅密码</InputLabel>
           <Input
             type={this.state.showPassword_dt ? "text" : "password"}
@@ -373,7 +373,7 @@ class InfoBindForm extends Component {
               </InputAdornment>
             }
           />
-        </FormControl>
+        </FormControl> */}
         <ButtonOverride
           fullWidth={true}
           className="page_button"

@@ -1,8 +1,3 @@
-// 公共样式
-// 使用weui+样式框架
-@import './weui.min.css';
-@import './weuix.min.css';
-
 body {
   background-color: #f8f8f8;
 }
@@ -18,10 +13,10 @@ p {
   }
 }
 
-.page_hd {
+.page-hd {
   padding: 30px 0;
 
-  .page_title {
+  .page-title {
     margin: 20px 0 20px;
     padding: 10px;
     text-align: center;
@@ -42,43 +37,23 @@ p {
   }
 }
 
-.page_bd {
+.page-bd {
   padding: 0 16px;
 }
 
-.page__ft {
+.page-ft {
   margin: 10px 0 64px;
   color: #999;
   line-height: 1.5;
   font-size: 12px;
 }
 
-.page__hd,
-.page__ft {
+.page-hd,
+.page-ft {
   text-align: center;
 }
 
-.youth-hd {
-  @extend .delMarPad;
 
-  text-align: center;
-
-  padding: 2em 0;
-
-  .youth-hd-title {
-    color: #3CC51F;
-
-    font: {
-      size: 34px;
-      weight: 400;
-    }
-  }
-
-  .youth-hd-desc {
-    color: #888;
-    font-size: 14px;
-  }
-}
 
 
 .youth-footer {
@@ -133,4 +108,9 @@ p {
 .icon-moreApp::before {
   color: #008aff;
   font-size: 28px;
+}
+
+.icon-img {
+  width: 28px;
+  height: 28px;
 }

@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Layout from "../../components/Layout";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { updateUserInfo } from "../../store/action";
-import { serviceUrl } from "../../api/service";
+import { itemList } from "../../api/itemList";
 
 const style = () => ({
   root: {
@@ -31,9 +30,8 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    
-      console.log(this.props.reduxUserInfo);
-      
+    console.log(this.props.reduxUserInfo);
+
     if (this.props.location.resData) {
       const { data, meta } = this.props.location.resData;
       await this.props.updateUserInfo({ info: data, meta });
@@ -53,272 +51,44 @@ class Home extends React.Component {
         <RouterLink to={this.state.userPath}>
           <AccountCircle color="action" className="user-img" fontSize="large" />
         </RouterLink>
-        <Header title="学生服务" />
-        <div style={{ padding: 16 }}>
-          <Grid container spacing={16}>
-            <Grid item xs={4}>
-              <Link
-                href={serviceUrl.jidian}
-                underline="none"
-                color="textPrimary"
-              >
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-chengji" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>绩点查询</span>
-                    </Grid>
+        <Layout title="学生服务">
+          <div style={{ padding: 16 }}>
+            <Grid container spacing={16}>
+              {itemList.map((item, key) => {
+                return (
+                  <Grid item xs={4} key={key}>
+                    <Link href={item.url} underline="none" color="textPrimary">
+                      <Paper classes={{ root: classes.root }}>
+                        <Grid container direction="column">
+                          <Grid
+                            item
+                            className={classes.gridConIcon}
+                            container
+                            justify="center"
+                            alignItems="center"
+                          >
+                            {item.iconClass ? (
+                              <i className={item.iconClass} />
+                            ) : (
+                              <img
+                                src={item.imgSrc}
+                                alt={item.name}
+                                className
+                              />
+                            )}
+                          </Grid>
+                          <Grid item className={classes.gridConText}>
+                            <span>{item.name}</span>
+                          </Grid>
+                        </Grid>
+                      </Paper>
+                    </Link>
                   </Grid>
-                </Paper>
-              </Link>
+                );
+              })}
             </Grid>
-            <Grid item xs={4}>
-              <Link
-                href={serviceUrl.ecard}
-                underline="none"
-                color="textPrimary"
-              >
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-qia1" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>一卡通查询</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link href={serviceUrl.elec} underline="none" color="textPrimary">
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-dianchi" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>用电查询</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link
-                href={serviceUrl.hygiene}
-                underline="none"
-                color="textPrimary"
-              >
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-dasao" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>宿舍卫生成绩</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link href={serviceUrl.exam} underline="none" color="textPrimary">
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-exam" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>考试时间</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link href={serviceUrl.cet} underline="none" color="textPrimary">
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-chengjifenxi" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>四六级成绩</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link href={serviceUrl.cert} underline="none" color="textPrimary">
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-jiaoshi" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>教师资格证</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link href={serviceUrl.pth} underline="none" color="textPrimary">
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-wsdzb_zbgzt_zzsh_txth" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>普通话查询</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link
-                href={serviceUrl.calendor}
-                underline="none"
-                color="textPrimary"
-              >
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-rili1" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>校历查询</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link href={serviceUrl.bus} underline="none" color="textPrimary">
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-gongjiaoche-" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>班车时间</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link href={serviceUrl.qj} underline="none" color="textPrimary">
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-quanjing" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>全景地图</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
-              <Link
-                href={serviceUrl.aboutUs}
-                underline="none"
-                color="textPrimary"
-              >
-                <Paper classes={{ root: classes.root }}>
-                  <Grid container direction="column">
-                    <Grid
-                      item
-                      className={classes.gridConIcon}
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <i className="iconfont icon-moreApp" />
-                    </Grid>
-                    <Grid item className={classes.gridConText}>
-                      <span>关于我们</span>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Link>
-            </Grid>
-          </Grid>
-        </div>
-        <Footer />
+          </div>
+        </Layout>
       </div>
     );
   }
