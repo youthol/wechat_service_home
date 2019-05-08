@@ -1,10 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { updateUserInfo } from "../../store/action";
 import { itemList } from "../../api/itemList";
 
 const style = () => ({
@@ -30,15 +28,9 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log(this.props.reduxUserInfo);
-
-    if (this.props.location.resData) {
-      const { data, meta } = this.props.location.resData;
-      await this.props.updateUserInfo({ info: data, meta });
-    }
-    if (this.props.reduxUserInfo.info) {
+    const code = JSON.parse(localStorage.getItem("code"));
+    if (code === 0) {
       this.setState({
-        times: 0,
         userPath: "/user"
       });
     }
@@ -96,14 +88,4 @@ class Home extends React.Component {
 
 const NewHome = withStyles(style)(Home);
 
-const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateUserInfo: data => dispatch(updateUserInfo(data))
-});
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewHome);
+export default NewHome;

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { updateUserInfo } from "../../store/action";
 import {
   List,
   ListSubheader,
@@ -20,49 +18,32 @@ import Home from "@material-ui/icons/Home";
 import AccountBalance from "@material-ui/icons/AccountBalance";
 import Business from "@material-ui/icons/Business";
 import AirlineSeatIndividualSuite from "@material-ui/icons/AirlineSeatIndividualSuite";
+import { overrideForUser } from '../../model/overrideData';
 
 class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dialogOpen: false,
-      name: "",
-      sdut_id: "",
-      college: "",
-      class: "",
-      dormitory: "",
-      room: ""
+      data: {}
     };
   }
 
-  componentDidMount = async () => {
-    if (this.props.reduxUserInfo) {
-      const { info } = this.props.reduxUserInfo;
-      this.setState({
-        name: info.name,
-        sdut_id: info.sdut_id,
-        college: info.college.name,
-        class: "未绑定",
-        dormitory: info.dormitory.description,
-        room: info.room
-      });
+  componentDidMount = () => {
+    this.setState({
+      data: overrideForUser()
+    })
+  };
 
-      if (info.class) {
-        this.setState({
-          class: info.class
-        });
-      }
-    }
-  }
   changeInfo = () => {
     this.props.history.push("/change");
     console.log(this.props.history);
   };
 
-  cancelBind = async () => {
+  cancelBind = () => {
     // 清除本地信息
-    await this.props.updateUserInfo({info: "", meta: ""});
-    this.props.history.push("/home");
+    localStorage.clear();
+    this.props.history.replace("/home");
   };
 
   agreeDialog = () => {
@@ -83,13 +64,60 @@ class User extends Component {
     });
   };
   render() {
+    const itemList = [
+      {
+        label: "姓名",
+        iconBox: <Face color="primary" />,
+        data: this.state.data.name
+      },
+      {
+        label: "学号",
+        iconBox: <PermContactCalendar color="primary" />,
+        data: this.state.data.sdut_id
+      },
+      {
+        label: "学院",
+        iconBox: <AccountBalance color="primary" />,
+        data: this.state.data.college
+      },
+      {
+        label: "班级",
+        iconBox: <Home color="primary" />,
+        data: this.state.data.class
+      },
+      {
+        label: "宿舍楼号",
+        iconBox: <Business color="primary" />,
+        data: this.state.data.dormitory
+      },
+      {
+        label: "宿舍房间号",
+        iconBox: <AirlineSeatIndividualSuite color="primary" />,
+        data: this.state.data.room
+      }
+    ];
     return (
       <div>
         <List
           component="nav"
           subheader={<ListSubheader component="div">个人信息</ListSubheader>}
         >
-          <ListItem>
+        {
+          itemList.map((item, index)=>{
+            return (
+              <ListItem key={index}>
+                <ListItemIcon>
+                  {item.iconBox}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.label}
+                  secondary={item.data}
+                />
+              </ListItem>
+            );
+          })
+        }
+          {/* <ListItem>
             <ListItemIcon>
               <Face color="primary" />
             </ListItemIcon>
@@ -129,7 +157,7 @@ class User extends Component {
               <AirlineSeatIndividualSuite color="primary" />
             </ListItemIcon>
             <ListItemText primary="宿舍房间号" secondary={this.state.room} />
-          </ListItem>
+          </ListItem> */}
         </List>
         <Grid container style={{ marginTop: 20 }}>
           <Button
@@ -167,14 +195,4 @@ class User extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  reduxUserInfo: state.userInfo
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateUserInfo: () => dispatch(updateUserInfo())
-});
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(User);
+export default User;

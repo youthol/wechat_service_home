@@ -8,7 +8,7 @@ import React from "react";
 import InfoBindForm from "../../components/form/InfoBind";
 import Layout from "../../components/Layout";
 import { Link } from "@material-ui/core";
-import infoByToken from "../../model/getinfoBytoken";
+import infoByToken from "../../model/getInfoByToken";
 
 class InfoBin extends React.Component {
   // 曾经绑定过信息，一键登录

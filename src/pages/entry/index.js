@@ -1,4 +1,4 @@
-import { binding } from "../../model/getcode";
+import { binding } from "../../model/getCode";
 import { getInfoByCode } from "../../api/bind";
 
 const Entry = props => {
@@ -10,7 +10,12 @@ const Entry = props => {
       console.log(err);
       return false;
     });
-    props.history.replace({ pathname: "/home", resData });
+    console.log(resData);
+    localStorage.clear();
+    localStorage.setItem("data", JSON.stringify(resData.data));
+    localStorage.setItem("meta", JSON.stringify(resData.meta));
+    localStorage.setItem("code", JSON.stringify(resData.code));
+    props.history.replace("/home");
   };
 
   getInfo();

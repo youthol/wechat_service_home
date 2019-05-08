@@ -4,13 +4,6 @@ import { Link } from "@material-ui/core";
 const FooterLink = props => {
   return (
     <div>
-      <Link
-        href="https://lab.youthol.cn/app/wechat-service/home/"
-        underline="always"
-        className="page-link"
-      >
-        首页
-      </Link>
       {props.links
         ? props.links.map((item, key) => {
             if (item.url) {
