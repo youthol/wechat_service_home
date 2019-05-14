@@ -1,4 +1,4 @@
-export const binding = () => {
+export const getCode = () => {
   // 获取url中的参数
   const getQueryVariable = variable => {
     var query = window.location.search.substring(1); //substring() 方法用于提取字符串中介于两个指定下标之间的字符。

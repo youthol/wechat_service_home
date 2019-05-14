@@ -2,22 +2,16 @@ body {
   background-color: #f8f8f8;
 }
 
-p {
+* {
   margin: 0;
-}
-
-.delMarPad {
-  * {
-    margin: 0;
-    padding: 0;
-  }
+  padding: 0;
 }
 
 .page-hd {
   padding: 30px 0;
 
   .page-title {
-    margin: 20px 0 20px;
+    margin: 20px 0 5px;
     padding: 10px;
     text-align: center;
 
@@ -26,7 +20,7 @@ p {
     }
 
     span::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -8px;
       left: -10%;
@@ -34,6 +28,10 @@ p {
       height: 2px;
       background-color: #008aff;
     }
+  }
+
+  .page-support {
+    color: #999;
   }
 }
 
@@ -52,9 +50,6 @@ p {
 .page-ft {
   text-align: center;
 }
-
-
-
 
 .youth-footer {
   margin: 50px 0;

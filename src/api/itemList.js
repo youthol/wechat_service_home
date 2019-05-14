@@ -15,20 +15,20 @@ export const itemList = [
     iconClass: "iconfont icon-chengji",
     imgSrc: ""
   },
-  {
-    id: 2,
-    name: "一卡通查询",
-    url: serviceUrl.ecard,
-    iconClass: "iconfont icon-qia1",
-    imgSrc: ""
-  },
-  {
-    id: 3,
-    name: "用电查询",
-    url: serviceUrl.elec,
-    iconClass: "iconfont icon-dianchi",
-    imgSrc: ""
-  },
+  // {
+  //   id: 2,
+  //   name: "一卡通查询",
+  //   url: serviceUrl.ecard,
+  //   iconClass: "iconfont icon-qia1",
+  //   imgSrc: ""
+  // },
+  // {
+  //   id: 3,
+  //   name: "用电查询",
+  //   url: serviceUrl.elec,
+  //   iconClass: "iconfont icon-dianchi",
+  //   imgSrc: ""
+  // },
   {
     id: 4,
     name: "宿舍卫生成绩",

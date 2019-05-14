@@ -9,8 +9,8 @@ import {
   InputAdornment,
   IconButton
 } from "@material-ui/core";
-import { getDormitory, bindInfo, getCollege } from "../../api/bind";
-import SnackbarOverride from "../material/SnackbarOverride";
+import { getDormitory,  getCollege } from "../../api/bind";
+// import SnackbarOverride from "../material/SnackbarOverride";
 import ButtonOverride from "../material/ButtonOverride";
 
 const collegeState = ["学院信息获取中..", "学院信息获取失败！"];

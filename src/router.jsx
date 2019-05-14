@@ -5,7 +5,7 @@ import InfoBin from "./pages/info/bind.jsx";
 import InfoChan from "./pages/info/change.jsx";
 import Home from "./pages/home";
 import User from "./pages/user";
-import Entry from "./pages/entry";
+import About from "./pages/about";
 
 class Router extends Component {
   render() {
@@ -13,12 +13,13 @@ class Router extends Component {
       <div>
         <HashRouter>
           <Switch>
-            <Route exact path="/" component={Entry} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/404" component={PageNotFou} />
             <Route exact path="/bind" component={InfoBin} />
             <Route exact path="/change" component={InfoChan} />
             <Route exact path="/user" component={User} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="*" component={Home} />
           </Switch>
         </HashRouter>
       </div>

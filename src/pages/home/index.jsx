@@ -1,9 +1,10 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+// import { Link as RouterLink } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+// import AccountCircle from "@material-ui/icons/AccountCircle";
 import { itemList } from "../../api/itemList";
+import { entry } from "../../model/entry";
 
 const style = () => ({
   root: {
@@ -28,11 +29,14 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    const code = JSON.parse(localStorage.getItem("code"));
-    if (code === 0) {
-      this.setState({
-        userPath: "/user"
-      });
+    await entry();
+    if (localStorage.getItem("code")) {
+      const code = JSON.parse(localStorage.getItem("code"));
+      if (code === 0) {
+        this.setState({
+          userPath: "/user"
+        });
+      }
     }
   };
 
@@ -40,9 +44,9 @@ class Home extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <RouterLink to={this.state.userPath}>
+        {/* <RouterLink to={this.state.userPath}>
           <AccountCircle color="action" className="user-img" fontSize="large" />
-        </RouterLink>
+        </RouterLink> */}
         <Layout title="学生服务">
           <div style={{ padding: 16 }}>
             <Grid container spacing={16}>
