@@ -35,6 +35,10 @@ body {
   }
 }
 
+.home-page-about-text {
+  text-decoration-line: none;
+  color: rgba(0, 0, 0, 0.87);
+}
 .page-bd {
   padding: 0 16px;
 }
@@ -108,4 +112,29 @@ body {
 .icon-img {
   width: 28px;
   height: 28px;
+}
+
+.about-top {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.about-content {
+  padding: 10px 20px;
+
+  .about-content-intro {
+    margin-top: 10px;
+  }
+
+  .about-list {
+    padding: 10px 20px;
+  }
+
+  .about-lab {
+    padding: 10px 0;
+
+    .about-img-lab {
+      width: 50%;
+    }
+  }
 }

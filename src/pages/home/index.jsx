@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -82,6 +82,28 @@ class Home extends React.Component {
                   </Grid>
                 );
               })}
+              <Grid item xs={4}>
+                <Link underline="none" color="textPrimary">
+                  <Paper classes={{ root: classes.root }}>
+                    <RouterLink to="/about" className="home-page-about-text">
+                      <Grid container direction="column">
+                        <Grid
+                          item
+                          className={classes.gridConIcon}
+                          container
+                          justify="center"
+                          alignItems="center"
+                        >
+                          <i className="iconfont icon-moreApp" />
+                        </Grid>
+                        <Grid item className={classes.gridConText}>
+                          <span>关于我们</span>
+                        </Grid>
+                      </Grid>
+                    </RouterLink>
+                  </Paper>
+                </Link>
+              </Grid>
             </Grid>
           </div>
         </Layout>

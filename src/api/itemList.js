@@ -84,12 +84,5 @@ export const itemList = [
     url: serviceUrl.qj,
     iconClass: "iconfont icon-quanjing",
     imgSrc: ""
-  },
-  {
-    id: 12,
-    name: "关于我们",
-    url: serviceUrl.aboutUs,
-    iconClass: "iconfont icon-moreApp",
-    imgSrc: ""
   }
 ];
