@@ -4,7 +4,7 @@ import { Typography } from "@material-ui/core";
 const Header = props => {
   return (
     <div className={"page-hd " + props.className}>
-      <Typography variant="h5" align="center" className="page-title">
+      <Typography variant="h4" align="center" className="page-title">
         <span>{props.title}</span>
       </Typography>
       <Typography variant="caption" align="center">

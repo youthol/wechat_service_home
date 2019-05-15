@@ -10,7 +10,7 @@ class About extends React.Component {
   componentDidMount() {
     scrollreveal.reveal(".about-img-logo", {
       delay: 200,
-      distance: '8px',
+      distance: '14px',
       duration: 1000
     });
   }

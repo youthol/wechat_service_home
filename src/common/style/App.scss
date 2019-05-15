@@ -24,9 +24,10 @@ body {
       position: absolute;
       bottom: -8px;
       left: -10%;
-      width: 120%;
       height: 2px;
       background-color: #008aff;
+      animation: blueline .5s ease .5s;
+      animation-fill-mode: forwards;
     }
   }
 
@@ -141,4 +142,9 @@ body {
       width: 50%;
     }
   }
+}
+
+@keyframes blueline {
+  from {width: 0}
+  to {width: 120%}
 }
