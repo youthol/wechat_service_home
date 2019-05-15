@@ -115,8 +115,12 @@ body {
 }
 
 .about-top {
-  padding: 20px 0;
+  padding: 40px 0 20px 0;
   text-align: center;
+
+  .about-img-logo {
+    visibility: hidden;
+  }
 }
 
 .about-content {
