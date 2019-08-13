@@ -4,7 +4,7 @@ import Layout from "../../components/Layout";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import { itemList } from "../../api/itemList";
-import { entry } from "../../model/entry";
+// import { entry } from "../../model/entry";
 
 const style = () => ({
   root: {
@@ -21,23 +21,23 @@ const style = () => ({
 });
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userPath: "/bind"
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     userPath: "/bind"
+  //   };
+  // }
 
   componentDidMount = async () => {
-    await entry();
-    if (localStorage.getItem("code")) {
-      const code = JSON.parse(localStorage.getItem("code"));
-      if (code === 0) {
-        this.setState({
-          userPath: "/user"
-        });
-      }
-    }
+    // await entry();
+    // if (localStorage.getItem("code")) {
+    //   const code = JSON.parse(localStorage.getItem("code"));
+    //   if (code === 0) {
+    //     this.setState({
+    //       userPath: "/user"
+    //     });
+    //   }
+    // }
   };
 
   render() {
