@@ -69,7 +69,7 @@ class Home extends React.Component {
                               <img
                                 src={item.imgSrc}
                                 alt={item.name}
-                                className
+                                className="img-icon-class"
                               />
                             )}
                           </Grid>
