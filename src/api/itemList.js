@@ -1,5 +1,6 @@
 import { serviceUrl } from "./service";
 import ncre from '../common/img/ncre.png';
+import freshman from '../common/img/freshman.png';
 
 /**
  * 1. 为了最佳的显示效果，每一项名称的字数尽量不要超过6个字；
@@ -12,7 +13,7 @@ export const itemList = [
     name: "新生信息查询",
     url: serviceUrl.freshman,
     iconClass: "",
-    imgSrc: ncre
+    imgSrc: freshman
   },
   {
     name: "绩点查询",
@@ -47,8 +48,8 @@ export const itemList = [
   {
     name: "计算机等级",
     url: serviceUrl.ncre,
-    iconClass: "iconfont icon-chengjifenxi",
-    imgSrc: ""
+    iconClass: "",
+    imgSrc: ncre
   },
   {
     name: "四六级成绩",

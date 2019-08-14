@@ -83,7 +83,6 @@ class Home extends React.Component {
                 );
               })}
               <Grid item xs={4}>
-                <Link underline="none" color="textPrimary">
                   <Paper classes={{ root: classes.root }}>
                     <RouterLink to="/about" className="home-page-about-text">
                       <Grid container direction="column">
@@ -102,7 +101,6 @@ class Home extends React.Component {
                       </Grid>
                     </RouterLink>
                   </Paper>
-                </Link>
               </Grid>
             </Grid>
           </div>

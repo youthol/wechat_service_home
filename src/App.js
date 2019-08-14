@@ -20,11 +20,9 @@ const theme = createMuiTheme({
 class App extends Component {
   render() {
     return (
-      <div>
         <MuiThemeProvider theme={theme}>
           <Router />
         </MuiThemeProvider>
-      </div>
     );
   }
 }
