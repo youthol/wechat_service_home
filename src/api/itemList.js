@@ -1,6 +1,6 @@
 import { serviceUrl } from "./service";
-import ncre from '../common/img/ncre.png';
-import freshman from '../common/img/freshman.png';
+import ncre from "../common/img/ncre.png";
+import freshman from "../common/img/freshman.png";
 
 /**
  * 1. 为了最佳的显示效果，每一项名称的字数尽量不要超过6个字；
@@ -15,12 +15,12 @@ export const itemList = [
     iconClass: "",
     imgSrc: freshman
   },
-  {
-    name: "绩点查询",
-    url: serviceUrl.jidian,
-    iconClass: "iconfont icon-chengji",
-    imgSrc: ""
-  },
+  // {
+  //   name: "绩点查询",
+  //   url: serviceUrl.jidian,
+  //   iconClass: "iconfont icon-chengji",
+  //   imgSrc: ""
+  // },
   {
     name: "一卡通查询",
     url: serviceUrl.ecard,
