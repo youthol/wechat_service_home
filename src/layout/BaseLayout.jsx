@@ -3,17 +3,16 @@ import Header from "./Header";
 import Footer from "./Footer";
 import FooterLink from "./FooterLink";
 
-const Layout = props => {
+const BaseLayout = props => {
   return (
     <div>
       <Header title={props.title} />
-      {props.children}
+      <div>{props.children}</div>
       <Footer>
-        {/* links为数组 */}
         <FooterLink links={props.links} />
       </Footer>
     </div>
   );
 };
 
-export default Layout;
+export default BaseLayout;

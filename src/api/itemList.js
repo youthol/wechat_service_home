@@ -1,6 +1,6 @@
 import { serviceUrl } from "./service";
-import ncre from "../common/img/ncre.png";
-import freshman from "../common/img/freshman.png";
+import ncre from "../asset/img/ncre.png";
+import freshman from "../asset/img/freshman.png";
 
 /**
  * 1. 为了最佳的显示效果，每一项名称的字数尽量不要超过6个字；

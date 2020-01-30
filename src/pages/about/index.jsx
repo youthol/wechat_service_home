@@ -1,8 +1,8 @@
 import React from "react";
-import Footer from "../../components/Layout/Footer";
-import FooterLink from "../../components/Layout/FooterLink";
-import logo from "../../common/img/logo.png";
-import lab from "../../common/img/lab.png";
+import Footer from "../../layout/Footer";
+import FooterLink from "../../layout/FooterLink";
+import logo from "../../asset/img/logo.png";
+import lab from "../../asset/img/lab.png";
 import { Typography, Link } from "@material-ui/core";
 import scrollreveal from "../../components/scrollreveal";
 

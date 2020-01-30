@@ -61,8 +61,7 @@ instance.interceptors.response.use(
       errorHandle(response.status, response.data.message);
       return Promise.reject(response);
     } else {
-      console.log("连接到服务器失败");
-      return Promise.reject();
+      return Promise.reject("连接到服务器失败");
     }
   }
 );

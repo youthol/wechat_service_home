@@ -18,7 +18,7 @@ import Home from "@material-ui/icons/Home";
 import AccountBalance from "@material-ui/icons/AccountBalance";
 import Business from "@material-ui/icons/Business";
 import AirlineSeatIndividualSuite from "@material-ui/icons/AirlineSeatIndividualSuite";
-import { overrideForUser } from '../../model/overrideData';
+import { overrideForUser } from '../../lib/overrideData';
 
 class User extends Component {
   constructor(props) {

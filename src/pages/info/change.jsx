@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import InfoBindForm from "../../components/form/InfoBind";
 import { getInfoByToken } from "../../api/bind";
-import Layout from "../../components/Layout";
-import { overrideForInfoChange } from "../../model/overrideData";
+import Layout from "../../layout/BaseLayout";
+import { overrideForInfoChange } from "../../lib/overrideData";
 
 class InfoChan extends Component {
   constructor(props) {

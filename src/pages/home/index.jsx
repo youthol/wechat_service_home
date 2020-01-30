@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import Layout from "../../components/Layout";
+import Layout from "../../layout/BaseLayout";
 import { Grid, Paper, withStyles, Link } from "@material-ui/core";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import { itemList } from "../../api/itemList";
@@ -21,25 +21,6 @@ const style = () => ({
 });
 
 class Home extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     userPath: "/bind"
-  //   };
-  // }
-
-  componentDidMount = async () => {
-    // await entry();
-    // if (localStorage.getItem("code")) {
-    //   const code = JSON.parse(localStorage.getItem("code"));
-    //   if (code === 0) {
-    //     this.setState({
-    //       userPath: "/user"
-    //     });
-    //   }
-    // }
-  };
-
   render() {
     const { classes } = this.props;
     return (
@@ -83,24 +64,24 @@ class Home extends React.Component {
                 );
               })}
               <Grid item xs={4}>
-                  <Paper classes={{ root: classes.root }}>
-                    <RouterLink to="/about" className="home-page-about-text">
-                      <Grid container direction="column">
-                        <Grid
-                          item
-                          className={classes.gridConIcon}
-                          container
-                          justify="center"
-                          alignItems="center"
-                        >
-                          <i className="iconfont icon-moreApp" />
-                        </Grid>
-                        <Grid item className={classes.gridConText}>
-                          <span>关于我们</span>
-                        </Grid>
+                <Paper classes={{ root: classes.root }}>
+                  <RouterLink to="/about" className="home-page-about-text">
+                    <Grid container direction="column">
+                      <Grid
+                        item
+                        className={classes.gridConIcon}
+                        container
+                        justify="center"
+                        alignItems="center"
+                      >
+                        <i className="iconfont icon-moreApp" />
                       </Grid>
-                    </RouterLink>
-                  </Paper>
+                      <Grid item className={classes.gridConText}>
+                        <span>关于我们</span>
+                      </Grid>
+                    </Grid>
+                  </RouterLink>
+                </Paper>
               </Grid>
             </Grid>
           </div>
