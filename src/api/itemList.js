@@ -76,7 +76,7 @@ export const itemList = [
     imgSrc: ""
   },
   {
-    name: "班车时间",
+    name: "小绿龙查询",
     url: serviceUrl.bus,
     iconClass: "iconfont icon-gongjiaoche-",
     imgSrc: ""
